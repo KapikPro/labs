@@ -2,7 +2,7 @@
 #include<iomanip>
 #include<vector>
 using namespace std;
-void pod(double mas[10])
+void pod(vector<double> mas)
 {
 	double max = 0;
 	for (int i = 0; i < mas.size(); i++)
