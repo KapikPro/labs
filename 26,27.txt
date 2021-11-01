@@ -1,0 +1,92 @@
+27aya
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	int n,s=0,a=0;
+	cin >> n;
+	vector<int> k(3), min(n);
+	vector< pair<int,int>> max(n);
+	for (int i = 0; i < n; i++)
+	{
+		cin >> k[0] >> k[1] >> k[2] ;
+		sort(k.begin(), k.end());
+		s += k[1] + k[2];
+		min[i] = k[0];
+	    max[i].first = k[1];
+		max[i].second = k[2];
+	}
+	if (s % 4 == 0)
+		cout << s;
+	else
+	{
+		int t;
+		t = s - (s / 4) * 4;
+		int t1 = 0, i=0;
+		while (t1 != t)
+		{
+			if (t != max[i].first - min[i])
+				t1 = max[i].second - min[i];
+			else
+			{
+				cout << s - t;
+				return 0;
+			}
+			i++;
+			if (i == n && t1 != t)
+			{
+				cout << " takogo ya ne uchel";
+				return 0;
+			}
+		}
+		cout << s - t;
+	}
+}
+
+
+26aya
+
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	int n,s=0,k,t=0;
+	cin >> n;
+	vector<int> a(1);
+	for (int i = 0; i < n; i++)
+	{
+		cin >> k;
+		if (k > 150)
+		{
+			a[t] = k;
+			a.resize(t + 2);
+			t++;
+		}
+		else
+			s += k;
+	}
+	t = 0;
+	for (int i = 0; i < a.size() - 1; i++)
+	{
+		
+		if (i % 2 != 0)
+		{
+			if (t < a[i])
+				t = a[i];
+			s += ceil(0.8* a[i]);
+		}
+		else
+			s += a[i];
+	}
+	cout << s << " " << t;
+}

@@ -1,1 +1,1 @@
-# labis
+# laboratory work in informatics

@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	string s;
+	int k=0,km=0;
+	cin >> s;
+	for (int i = 0; i < s.size()-2; i+=2)
+	{
+		if (s[i] == 'A' && s[i + 1] == 'B')
+			k++;
+		else 
+			if ( k != 0)
+			{
+				if(s[i] == 'A')
+				k++;
+				if (k > km)
+					km = k;
+				k = 0;
+			}
+	}
+	cout<<km;
+	return 0;
+}

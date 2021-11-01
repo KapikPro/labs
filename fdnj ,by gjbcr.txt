@@ -1,0 +1,40 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+#include<map>
+using namespace std;
+int main()
+{
+	freopen("C:\\Users\\yrik2\\Downloads\\26 (1).txt", "r", stdin);
+	int n, k=0,p1,p2;
+	cin >> n;
+	int arfm; int am = 0;
+	vector<int> a(n);
+	for (int i=0;i<n;i++)
+	{
+		cin >> a[i];
+	}
+	sort(a.begin(), a.end());
+	for (int i = 0; i < n - 1; i++)
+	{
+		for (int t = i + 1; t < n; t++)     
+		{
+			if ((a[i] % 2 == 0) && (a[t] % 2 == 0))
+			{
+				arfm = (a[i] + a[t]) / 2;
+				auto it = lower_bound(a.begin(), a.end(), arfm);
+					if (it!=a.end() && *it == arfm)
+					{
+						if (am < arfm)
+							am = arfm;
+						k++;
+					}
+					
+			}
+		}
+	}
+		cout << k << " " << am;
+	return 0;
+}

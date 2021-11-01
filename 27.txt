@@ -1,0 +1,35 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	freopen("C:\\Users\\yrik2\\Downloads\\27_A.txt", "r", stdin);
+	int n;
+	cin >> n;
+	vector<int> u(n);
+	int  s = 0;
+	for (int i = 0; i < n; i++)
+	{
+		int a, b, c,k;
+		cin >> a >> b >> c;
+		k   =max(a, max(b, c));
+		s += k;
+		int o = min(a, min(b, c));
+		if (a != k && a != o)
+			u[i] = k - a;
+		if (b != k && b != o)
+			u[i] = k - b;
+		if (c != k && c != o)
+			u[i] = k - c;
+	}
+
+	if (s % 109 == 0)
+	{
+		sort(u.begin(), u.end());
+		s -= u[0];
+	}
+     cout<< s;
+}
