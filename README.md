@@ -1,1 +1,1 @@
-# laboratory work in informatics
+# laboratory work 
