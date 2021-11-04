@@ -1,8 +1,9 @@
 #include<iostream>
 #include<iomanip>
 #include<vector>
+#include<algorithm>
 using namespace std;
-void wwm(double *m)//work with massive;
+double m()//work with massive;
 {
 	cout << "введите размер массива" << endl;
 	int n;
@@ -19,13 +20,26 @@ void wwm(double *m)//work with massive;
 			if (min > mas[i])
 				min = mas[i];
 	}
-	*m = min;
+	return min;
 }
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	double *m;
-	wwm(m);
-	int a = *m;
-	cout << a;
+
+
+	int a = m();
+	int b = m();
+	int c = m();
+	cout << "максимальное минимальное значение равно " << max(a, max(b, c))<<endl;
+	if ((max(a, max(b, c)) == a) && (max(a, max(b, c)) == b) && (max(a, max(b, c)) == c))
+		cout << "минимальные значения всех трех массивов равны" << endl;
+	else
+		if ((max(a, max(b, c)) == a) && (max(a, max(b, c)) == b))
+			cout << "минимальные значения массивов а и b равны и являются максимальными " << endl;
+		else
+			if ((max(a, max(b, c)) == a) && (max(a, max(b, c)) == c))
+				cout << "минимальные значения массивов а и с равны и являются максимальными " << endl;
+			else
+				if ((max(a, max(b, c)) == c) && (max(a, max(b, c)) == b))
+					cout << "минимальные значения массивов а и с равны и являются максимальными " << endl;
 }
