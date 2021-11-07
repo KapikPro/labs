@@ -3,7 +3,7 @@
 #include<iomanip>
 #include<vector>
 #include <cstdio>
-using namespace std;
+using namespace std;//укажите в файле количество элементов в массиве, потом введите d, а уже потом введите массив;
 int check(vector<int> a, int d)
 {
     int k = -1;
@@ -25,14 +25,13 @@ void bum(vector<int> a ,int* num, int* min,int n)
         if (a[i] < *min)
         {
             *min = a[i];
-            *num = i + 1;
+            *num = i;
         }
     }
 }
 int main()
 {
-    setlocale(LC_ALL, "Russian");
-    cout << "пожалуйста, кажите в файле количество элементов в массиве, потом введите d, а уже потом введите массив" << endl;
+    setlocale(LC_ALL, "Russian");//укажите в файле количество элементов в массиве, потом введите d, а уже потом введите массив;
     freopen("C:\\Users\\yrik2\\Рабочий стол\\text.txt", "r", stdin);
     int n, d,num,min;
     cin >> n >> d;
@@ -44,6 +43,6 @@ int main()
     n=check(a, d)+1;
     bum(a, &num, &min, n);
     fclose(stdin);
-   freopen("C:\\Users\\yrik2\\Рабочий стол\\text.txt", "w", stdout)
-    сout << "Вывод:" << endl << "номер искомого элемента равен " << num << ", а сам он равен " << min;
+   freopen("C:\\Users\\yrik2\\Рабочий стол\\text.txt", "w", stdout);
+    cout << "Вывод:" << endl << "номер искомого элемента равен " << num << "(считая с 0), а сам он равен " << min;
 }
