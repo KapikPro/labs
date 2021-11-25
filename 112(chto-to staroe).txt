@@ -1,0 +1,42 @@
+int m = 0, n = 0, q = 0,k1=0,k2=0,max=0;
+	cin >> m >> n >> q;
+	vector<pair<int, int>> a(m+1);
+	for (int i = 0; i < m; i++)
+	{
+		a[i].first = i+1;
+		cin >> a[i].second;
+	}
+	int reb[100][100];
+	for (int i = 0; i < n; i++)
+	{
+		cin >> k1 >> k2;
+		reb[k1][k2] = 1;
+		reb[k2][k1] = 1;
+	}
+	for (int i = 0; i < q; i++)
+	{
+		int t = 0;
+		cin >> t;
+		if (k1 ==t)
+		{
+			cin >> k1 >> k2;
+			reb[k1][k2] = 1;
+			reb[k2][k1] = 1;
+		}
+		else 
+		{ 
+			cin >> k1 >> k2;
+			reb[k1][k2] = 0;
+			reb[k2][k1] = 0;
+		}
+		for(int k=1;k<=m;k++)
+			for(int l=2;l<=m;l++)
+				for (int z = 3;z <= m; z++)
+				{
+					if (((reb[k][l] == 0) or (reb[k][z] == 0) or (reb[l][z] == 0)) and (k!=l) and (z!=k) and (l!=z))
+						if (a[l].second + a[k].second + a[z].second > max)
+							max = a[l].second + a[k].second + a[z].second;
+				}
+		cout << max<<'\n';
+		max = 0;
+	}
