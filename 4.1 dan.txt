@@ -1,0 +1,74 @@
+#include<iostream>
+#include<iomanip>
+#include<vector>
+using namespace std;
+bool check(double a[3], double m)
+{
+	bool da = true;
+	for (int i = 0; i < 3; i++)
+	{
+		if (a[i] < m)
+			da = false;
+	}
+	return da;
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << "Введите массив А" << endl;
+	double a[3], m, b[3];
+	for (int i = 0; i < 3; i++)
+	{
+		cin >> a[i];
+	}
+	cout << "Введите m" << endl;
+	cin >> m;
+	cout << boolalpha << check(a, m) << endl;
+	cout << "Введите массив B" << endl;
+	for (int i = 0; i < 3; i++)
+	{
+		cin >> b[i];
+	}
+	cout << "Введите m: " << endl;
+	cin >> m;
+	cout << boolalpha << check(b, m) << endl;
+	bool c = 1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (a[i] < 0.1)
+			c = 0;
+	}
+
+	if (c == 0)
+		cout << "Для массива А условие не выполнено" << endl;
+	else
+	{
+		cout << "Изменный массив А: " << endl;
+		for (int i = 0; i < 3; i++)
+		{
+			if (a[i] > 0.1)
+				a[i] = b[i];
+			cout << a[i] << " ";
+		}
+		cout << endl;
+	}
+	c = 1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (a[i] < 0.1)
+			c = 0;
+	}
+	if (c == 0)
+		cout << "Для массива В условие не выполнено" << endl;
+	else
+	{
+		cout << "Изменный массив В: " << endl;
+		for (int i = 0; i < 3; i++)
+		{
+			if (b[i] > 0.1)
+				b[i] = a[i];
+			cout << b[i] << " ";
+		}
+		cout << endl;
+	}
+}
