@@ -1,0 +1,53 @@
+#include <iostream>
+#include <math.h>
+#include <conio.h>
+using namespace std;
+void V(double p[7])
+{
+	for (int i = 0; i < 7; i++)
+		cin >> p[i];
+}
+void Zamena(double p[7], double t, int &k)
+{
+	for (int i = 0; i < 7; i++)
+		if (p[i] < t)
+		{
+			p[i] = t;
+			k++;
+		}
+}
+void W(double p[7])
+{
+	for (int i = 0; i < 7; i++)
+		cout << i+1<<")" << p[i] << endl;
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	double c[7], p[7], t;
+	int k = 0, l = 0;
+	cout << "введите массив P" << endl;
+	V(p);
+	cout << "введите массив C" << endl;
+	V(c);
+	cout << "введите T" << endl;
+	cin >> t;
+	Zamena(p, t,k);
+	Zamena(c,t,l);
+	if (k > l)
+	{
+		cout << "количество замен в массиве P больше, чем в массиве C" << endl;
+		cout << "вывод изминенного массива Р:" << endl;
+		W(p);
+	}
+	else
+		if(k<l)
+	{
+		cout << "количество замен в массиве C больше, чем в массиве P" << endl;
+		cout << "вывод изминенного массива c:" << endl;
+		W(c);
+	}
+		else
+			cout << "в обоих массивах одинаковое число замен и равно оно "<<k << endl;
+
+}
