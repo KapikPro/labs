@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void gen(vector<int>& divs, int n, int prev)
+{
+    if (n <= 1)
+    {
+        for (int i = 0; i < divs.size(); ++i)
+            cout << divs[i] << ' ';
+        cout << endl;
+        return;
+    }
+    for (int i = prev; i >= 2; --i)
+        if (n % i == 0)
+        {
+            divs.push_back(i);
+            gen(divs, n / i, i);
+            divs.pop_back();
+        }
+}
+
+int main()
+{
+    vector<int> divs;
+    int n;
+    cin >> n;
+    gen(divs, n, n);
+    return 0;
+}
