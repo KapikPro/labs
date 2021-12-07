@@ -2,7 +2,7 @@
 #include<iomanip>
 #include<vector>
 using namespace std;
-void schit(vector<vector<double>> &a, vector<double> &c,int n)
+void schit(vector<vector<double>>& a, vector<double>& c, int n)
 {
 	cout << "введите матрицу" << endl;
 	for (int i = 0; i < n; i++)
@@ -47,10 +47,11 @@ int main()
 	vector<vector<double>> a(n, vector<double>(n));
 	vector<double> c(n);
 	schit(a, c, n);
+	cout << SrArfm(a) << endl;
 	for (int i = 0; i < n; i++)
 		if (SrArfm(a) >= c[i])
 		{
-			cout << "среднее арифметическое элеметов главной диагонали массива больше, чем элемент массива с под номером или равно ему " << i << endl;
+			cout << "среднее арифметическое элеметов главной диагонали массива больше, чем элемент массива с под номером "<<i<< " или равно ему " << endl;
 			return 0;
 		}
 	cout << "среднее арифметическое элеметов главной диагонали массива меньше, чем любой элемент массива с" << endl;
