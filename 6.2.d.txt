@@ -50,3 +50,4 @@ int main()
 		if (c[l].length() == i)
 			cout << c[l] << endl;
 	}
+}

@@ -1,0 +1,73 @@
+#include<iostream>
+#include <stdio.h>
+#include <string.h>
+#include<vector>
+#include<string>
+using namespace std;
+struct sl
+{
+	string name,podr;
+	int kol, salary;
+	void input(int t,int &i,vector<struct sl> &m)
+	{
+		sl a;
+		int o = 0;
+		cout << "-введите название "<< t+1<<"ой фирмы:\n";
+		cin >>a.name;
+		cout << "введите подразделение фирмы:\n";
+		cin >> a.podr;
+		cout << "введите количество сотрудников:\n";
+		cin >> a.kol;
+		cout << "введите фонд зарпалты:\n";
+		cin >> a.salary;
+		for (int l = 0; l < i; l++)
+			if (m[l].name == a.name)
+			{
+				m[l].kol += a.kol;
+				m[l].salary += a.salary;
+				o = 1;
+				break;
+			}
+		if (o == 0)
+		{
+			m.push_back(a);
+			i++;
+		}
+			
+	}
+};
+int main()
+{
+	sl o;
+	setlocale(LC_ALL, "Russian");
+	cout << "введите количество подразделений(насколько я понял, в этой программе могут быть введены несколько подразделений одной и той же фирмы)\n";
+	int n, i = 0;
+	string nn;
+	cin >> n;
+	vector<struct sl> m;
+	for (int t = 0; t < n; t++)
+	{
+		o.input(t,i, m);
+	}
+	double t = 0;
+	t = 0;
+	nn = m[0].name;
+	t = (m[0].salary / m[0].kol);
+	for (int l = 1; l < m.size(); l++)
+		if (t < (m[l].salary / m[l].kol))
+		{
+			t = (m[l].salary / m[l].kol);
+			nn = m[l].name;
+	    }
+	cout << "фирмой с наибольшим фондом зарплаты на сотрудника является фирма " << nn << '\n';
+	cout << "-введите искомое число\n";
+	int g;
+	cin >> g;
+	 t = 0;
+	 for (int i = 0; i < m.size(); i++)
+		 if (m[i].kol < g)
+			 t++;
+	cout << "  количество фирм, у которых кол-во сотрудников меньше искомого числа равно "<<t;
+	
+			
+}

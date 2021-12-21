@@ -1,0 +1,67 @@
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+void in(vector<vector<double>> &p)
+{
+	cout << "Введите массив"<<endl;
+	for (int i = 0; i < p.size(); i++)
+		for (int l = 0; l <p.size(); l++)
+			cin >> p[i][l];
+}
+int stolb(vector<vector<double>> p)
+{
+	int k=0;
+	for (int l = 0; l < p.size(); l++)
+		for (int i = 0; i < p.size(); i++)
+			if (p[i][l] == 0)
+			{
+				k++;
+				break;
+			}
+	return k;
+}
+void o(vector<vector<double>> &p)
+{
+	int s=0;
+	for (int i = 0; i < p.size(); i++)
+		{
+		s += p[i][i];
+		}
+	for (int i = 0; i < p.size(); i++)
+		for (int l = 0; l < p.size(); l++)
+			p[i][l] /= s;;
+}
+void viv(vector<vector<double>> p)
+{
+	cout << "вывод изминенного массива" << endl;
+	for (int i = 0; i < p.size(); i++)
+	{
+		for (int l = 0; l < p.size(); l++)
+			cout << p[i][l] << " ";
+		cout << endl;
+	}
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n;
+	cout << "Введите размер стороны матрицы"<<endl;
+	cin >> n;
+	vector<vector<double>> a(n,vector<double> (n));
+	in(a);
+	cout << "Введите размер стороны матрицы"<<endl;
+	cin >> n;
+	vector<vector<double>> b(n, vector<double>(n));
+	in(b);
+	if (stolb(a) > stolb(b))
+	{
+		o(a);
+		viv(a);
+	}
+	else
+	{
+		o(b);
+		viv(b);
+	}
+}
