@@ -1,0 +1,87 @@
+#include<iostream>
+#include <stdio.h>
+#include <string.h>
+#include<vector>
+#include<string>
+using namespace std;
+struct sl
+{
+	string group,fam,k,s;
+	int fiz, inf, math, o;
+	void a(string s, int i)
+	{
+		cout << "введите данные "<<i+1<<"ого студента\n";
+		getline(cin, s);
+		for (int l = 0; l < s.length(); l++)
+		{
+			if (s[l] == ' ')
+			{
+				o = l+1;
+				group = k;
+				k.clear();
+				break;
+			}
+			else
+				k += s[l];
+		}
+		for (int l = o; l < s.length(); l++)
+		{
+			if (s[l] == ' ')
+			{
+				o = l+1;
+				fam = k;
+				k.clear();
+				break;
+			}
+			else
+				k += s[l];
+		}
+		for (int l = o; l < s.length(); l++)
+		{
+			if (s[l] == ' ')
+			{
+				o = l + 1;
+				fiz = stoi(k);
+				k.clear();
+				break;
+			}
+			else
+				k += s[l];
+		}
+		for (int l = o; l < s.length(); l++)
+		{
+			if (s[l] == ' ')
+			{
+				o = l + 1;
+				inf = stoi(k);
+				k.clear();
+				break;
+			}
+			else
+				k += s[l];
+		}
+		math = s[o]-'0';
+	}
+};
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << "справка: вводите сначала группу студента, потом фамилию и оценки по физике, информатике и математике(все вводите в одной строке)\n";
+	cout << "введите количество студентов\n";
+	int n;
+	cin >> n;
+	vector<struct sl> m(n);
+	getline(cin, m[0].s);
+	for (int i = 0; i < n; i++)
+	{
+		m[i].a(m[i].s, i);
+	}
+	cout << "введите искомую группу\n";
+	string g;
+	cin >> g;
+	cout << "студенты, у которых есть двойки:\n";
+	for (int i = 0; i < n; i++)
+		if (m[i].group == g)
+			if ((m[i].fiz <= 2) || (m[i].inf <= 2) || (m[i].math <= 2))
+				cout << m[i].fam<<'\n';
+}
