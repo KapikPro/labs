@@ -1,0 +1,26 @@
+#include<iostream>
+#include<iomanip>
+#include<vector>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	vector<vector<double>> m(10, vector <double> (2));
+	cout << "введите массив:\n";
+	for (int i = 0; i < 10; i++)
+	{
+		for (int l = 0; l < 2; l++)
+			cin >> m[i][l];
+		if ((m[i][1] / (m[i][0] / 100)) > 15)
+			m[i][0] = 1;
+		else
+			m[i][0] = 0;
+	}
+	cout << "искомые группы:\n";
+	for (int i = 0; i < 10; i++)
+	{
+		if (m[i][0] == 1)
+			cout << i + 1 << " ";
+	}
+
+}
