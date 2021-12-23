@@ -1,0 +1,56 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int m(int k, int i)
+{
+	for (int l = 0; l < i; l++)
+		if (i > 0)
+			k *= k+2;
+	return k;
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n;
+	double x, eps, a, b, sum;
+	cout << " введите i и eps" << endl;
+	cin >> n >> eps;
+	a = -1000;
+	b = 1000;
+	while (b - a > eps)
+	{
+		x = (b + a) / 2;
+		sum = 1;
+		int o = 0;
+		for (int i = 1; i <= n; i++)
+		{
+			if (o == 1)
+			{
+				sum +=pow(x,i)* m(5,i)/m(2,i);
+				o--;
+			}
+			else
+			{
+				o++;
+				sum -= pow(x, i) * m(5, i) / m(2, i);
+			}
+			if (i == n)
+				sum -= 1 / pow(x + 1, 2.5);
+
+		}
+		if (sum > 0)
+			a = x;
+		else
+			if(sum<0)
+			b = x;
+			else
+				if (sum == 0)
+				{
+					cout << x << setprecision(5) << fixed;
+					cout << endl;
+					return 0;
+				}
+
+	}
+	cout << b << setprecision(5) << fixed;
+}
