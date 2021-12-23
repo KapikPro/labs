@@ -1,0 +1,45 @@
+#include<iostream>
+#include<stdlib.h>
+#include<vector>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << "введите размер массивов:\n";
+	int n, o;
+	double k = 0;
+	cin >> n;
+	vector<double> m(n);
+	cout << "введите массив:\n";
+	for (int i = 0; i < n; i++)
+	{
+		cin >> m[i];
+	}
+	for (int i = 0; i < n-1; i++)
+		for (int l = 0; l < n - i - 1; l++)
+			if (m[l] > m[l + 1])
+			{
+				k = m[l + 1];
+				m[l + 1] = m[l];
+				m[l] = k;
+			}
+	cout << "введите границы диапозона:\n";
+	cin >> n >> o;
+	if (n > o)
+	{
+		k = n;
+		n = o;
+		o = k;
+	}
+	k = 0;
+	for (int i = 0; i < m.size(); i++)
+		if (m[i] >= n && o>=m[i])
+		{
+			cout << "в  массиве есть элемент находящийся в заданном диапазоне и его номер " << i+1<<"(считая с  1)";
+			k++;
+			break;
+		}
+	if (k == 0)
+		cout << "элементов из массива в диапазоне нет";
+	
+}
