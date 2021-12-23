@@ -1,0 +1,47 @@
+#include<iostream>
+#include <stdio.h>
+#include <string.h>
+#include<vector>
+#include<string>
+using namespace std;
+void sl(string s, vector<string>& a)
+{
+	bool o = 0;
+	string k;
+	for (int i = 0; i < s.length(); i++)
+	{
+		if ((s[i] == ' ' || s[i] == '.') && k != "")
+		{
+			for (int i = 0; i < a.size(); i++)
+				if (k == a[i])
+				{
+					o = 1;
+					break;
+				}
+    			if (o == 0 || s[i]=='.')
+			{
+				a.push_back(k);
+				if(s[i]=='.')
+					a.push_back(string(1,s[i]));
+				k.clear();
+			}
+			else
+				k.clear();
+			o = 0;
+		}
+		else
+			if (s[i] != ' ')
+				k += s[i];
+	}
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	vector<string> c;
+	string s;
+	cout << "введите текст\n";
+	getline(cin, s);
+	sl(s, c);
+	for (int i = 0; i < c.size(); i++)
+		cout << c[i]<<" ";
+}
