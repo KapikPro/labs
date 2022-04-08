@@ -1,10 +1,10 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>  // printf, scanf
 #include <conio.h>  // getch
 #include <math.h>   // fabs, pow, ceil\floor, log, log10, exp, sqrt
 #include <stdlib.h>  // randomize, rand
 #include <iostream> 
-
+#include <time.h> 
 using namespace std;
 
 const double xx[7] = { 0.00001, -0.99, -1, -0.1, 0.1, 1, 0.99 };
@@ -17,6 +17,7 @@ long long antifac(int i)
 }
 int main()
 {
+	srand(time(NULL));
 	setlocale(LC_ALL, "Russian");
 	int n, i, k, z;
 	double e, sl, sum, f, *x; // четыре простого типа и один – дин.массив(указатель)
@@ -63,22 +64,24 @@ int main()
 	z = ceil(fabs(log(e) / log(10.0))) + 1;
 
 	printf("e = %*.*lf\n", z + 2, z, e); // вывод e:(z+2):z
-	printf("N |        X        |      Sum(X)     | K|       F(X)      |  |Sum(X)-F(X)|\n");
+	
+	printf("N |        X        |      Sum(X)     | K  |       F(X)      |  |Sum(X)-F(X)|\n");
 	for (i = 1; i < 80; i++) printf("="); printf("\n");
 	for (i = 0; i < n; i++) 
 	{
 		// поиск суммы ряда
 		sum = sl = x[i]*0.25;  // sl=pow(x[i],2); sum=sl;  // первое слагаемое
-		k = 1;
-		while ((fabs(sl) >= e) && (k != 500)) {
-			sl *= (4*i+1)/(4*i+4.0);
+		k = 2;
+		while ((fabs(sl) >= e) && (k != 9000)) 
+		{
+			sl *= ((4*k-3.0)*x[i]*(-1))/(4*k);
 			sum += sl;
 			k++;
 		};
 
+		
 		f = 1 - 1 / pow(1 + x[i], 0.25);
-
-		printf("%2d|%17.*lf|%17.*lf|%2d|%17.*lf|%17.*lf\n",
+		printf("%2d|%17.*lf|%17.*lf|%4d|%17.*lf|%17.*lf\n",
 			i + 1, z, x[i], z, sum, k, z, f, z + 2, fabs(sum - f));
 	}
 
