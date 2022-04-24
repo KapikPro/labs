@@ -1,0 +1,59 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+int in(vector<vector<int>>& m)
+{
+	cout << "введите матрицу:\n";
+	int k = 0;
+	for (int i = 0; i < m.size(); i++)
+		for (int l = 0; l < m.size(); l++)
+		{
+			cin >> m[i][l];
+			if (m[i][l] == 0)
+				k = 1;
+		}
+	if (k == 1)
+		cout << "данная матрица подходит\n";
+	else
+		cout << "данная матрица не подходит\n-------------------------\n";
+	return k;
+}
+void izm(vector<vector<int>>& m, vector<int>& o)
+{
+	for (int i = 0; i < m.size(); i++)
+	{
+		int s = 0;
+		for (int l = 0; l < m.size(); l++)
+		{
+			if (m[i][l] == 0)
+				s++;
+		}
+		o[i] = s;
+		cout << "в " << i + 1 << "ой строке " << o[i] << " нулевой(ых) элемент(ов)\n";
+	}
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int n;
+	cout << "введите количество строк и столбцов в первой квадратной матрице:\n";
+	cin >> n;
+	vector<vector<int>> m(n, vector<int>(n));
+	vector<int> o(n);
+	if (in(m) == 1)
+		izm(m, o);
+	else
+	{
+		cout << "введите количество строк и столбцов во второй квадратной матрице:\n";
+		cin >> n;
+		m.clear();
+		m.resize(n, vector<int>(n));
+		o.resize(n);
+		if (in(m) != 1)
+		{
+			cout << "обе этих матрицы не подходят\n";
+			return 0;
+		}
+		izm(m, o);
+	}
+}

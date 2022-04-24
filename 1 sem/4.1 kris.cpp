@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+void o(int a[5], int l, int &k)
+{
+	for (int i = 0; i != 5; ++i)
+	{
+		if (a[i] < l)
+		{
+			a[i] = 0;
+			k = k + 1;
+		}
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int a[5], b[5], k = 0, l = 0;
+	cout << "введите массив а" << endl;
+	for (int i = 0; i < 5; ++i)
+	{
+		cin >> a[i];
+	}
+	cout << "введите массив b" << endl;
+	for (int i = 0; i < 5; ++i)
+	{
+		cin >> b[i];
+	}
+	cout << "измененный массив а: " << endl;
+	o(a,0, k);
+	cout << "измененный массив b: " << endl;
+	o(b, -10, l);
+	
+	if (k > l)
+	{
+		cout << "в массиве а кол-во замен больше";
+	}
+	else
+		if(l>k)
+	{
+		cout << "в массиве b кол-во замен больше";
+	}
+		else
+			cout << "кол-во замен в массивах одинаково";
+}

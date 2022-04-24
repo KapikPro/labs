@@ -1,0 +1,19 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+	double n, a, b, k=1;
+	setlocale(LC_ALL, "Russian");
+	cout << "введите n, a, b" << '\n';
+	cin >> n >> a >> b;
+	cout << '\n';
+	double x = (b - a) /(n-1);
+	while (k<=10)
+	{
+		cout <<" n="<<k << " x=" << a << " y=" << ((pow(pow(log(a), 2), 0.333) + tan(cos(3.14 * a))) * abs(log(a / 10.5))) <<'\n';
+		k++;
+		a += x;
+	}
+}

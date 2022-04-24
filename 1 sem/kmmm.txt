@@ -1,0 +1,74 @@
+#include<iostream>
+#include <stdio.h>
+#include <string.h>
+#include<iomanip>
+#include<vector>
+#include<string>
+using namespace std;
+void input(vector<vector<double>> & m)
+{
+	cout << "Введите массив:\n";
+	for (int i = 0; i < m.size(); i++)
+		for (int l = 0; l < m.size(); l++)
+			cin >> m[i][l];
+}
+int check(vector<vector<double>> &m,vector<int> &c)
+{
+	int o = 0;
+	for (int i = 0; i < m.size(); i++)
+		if (m[i][i]<=0)
+		{
+			o = 1;
+			break;
+		}
+	if (o == 0)
+	{
+		c.resize(m.size());
+		for (int l = 0; l < m.size(); l++)
+		{
+			int min = m[0][l];
+			for (int i = 0; i < m.size(); i++)
+			{
+				if (m[i][l] < min)
+					min = m[i][l];
+			}
+			c[l] = min;
+			min = 0;
+		}
+	}
+	return o;
+}
+void pd(int check, vector<vector<double>> &m1, vector<int> &c)
+{
+	if (check == 0)
+	{
+		for (int i = 0; i < m1.size(); i++)
+			for (int l = 0; l < m1.size(); l++)
+				m1[l][i] = m1[l][i] / c[i];
+		cout << "вывод измененной матрицы:\n";
+		for (int l = 0; l < m1.size(); l++)
+		{
+			cout << endl;
+			for (int i = 0; i < m1.size(); i++)
+				cout << m1[l][i]<<setprecision(1)<<fixed<<'\t' << " ";
+		}
+	}
+	
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	vector<int> c;
+	int n;
+	cout << "Введите размер стороны первой матрицы:\n";
+	cin >> n;
+	vector<vector<double>> m1(n, vector<double>(n));
+	input(m1);
+	cout << "Введите размер стороны второй матрицы:\n";
+	cin >> n;
+	vector<vector<double>> m2(n, vector<double>(n));
+	input(m2);
+	pd(check(m1,c), m1,c);
+	pd(check(m2,c), m2,c);
+
+}

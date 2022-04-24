@@ -1,0 +1,39 @@
+#include<iostream>
+#include <stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	cout << "введите количество строк:\n";
+	int n;
+	vector<string> c;
+	string s,k;
+	cin >> n;
+	cout << "справка:вводите строки на анлийском\n";
+	cout << "введите строки:\n";
+	int o = 0;
+	getline(cin, s);
+	for (int i = 0; i < n; i++)
+	{
+		getline(cin, s);
+		k.clear();
+		o = 0;
+		for (int l = 0; l < s.length(); l++)
+		{
+			if (o == 1)
+				k += s[l];
+			if (s[l] == '-')
+				o = 1;
+		}
+		if (k == "otlichno")
+			c.push_back(s);
+	}
+	cout << "искомое строки:\n";
+	
+	for (int i = 0; i < c.size(); i++)
+	{
+		cout << c[i] << endl;
+	}
+}

@@ -1,0 +1,20 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<stdio.h>
+#include<vector>
+#include<string>
+#include<sstream>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	char s[100];
+	FILE *fin, *fout;
+	int ch;
+	if ((fout = fopen("in.txt", "r")) == NULL)
+		cout << "Ошибка открытия файла для чтения\n";
+    char c[4];
+	cout<<fgets(c,9,fout);
+	fclose(fout);
+	delete c;
+}

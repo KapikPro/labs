@@ -1,0 +1,29 @@
+#include<iostream>
+#include<vector>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	cout << "enter base radius and cylinder height 10 times" << endl;
+	vector< vector <double>> a(10,vector<double> (2));
+	for ( int i = 0; i < 10; i++)
+	{
+		cout << i+1 << ") ";
+		for (int k = 0; k < 2; k++)
+		{
+			cin >> a[i][k];
+		}
+	}
+	cout << "enter t(if capacity smaller then t, programm stops)" << endl;
+	int t;
+	cin >> t;
+	double v;
+	for (int i = 0; i < 10; i++)
+	{
+		v = a[i][1] * (2 * 3.14 * pow(a[i][0], 2));
+		cout << i + 1 << ") capacity=" << v <<setprecision(1)<< endl;
+		if (v < t)
+			return(0);
+	}
+	cout << "the whole two-dimensional array is considered";
+}

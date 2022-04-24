@@ -1,0 +1,45 @@
+#include<iostream>
+#include <stdio.h>
+#include<vector>
+#include<string>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	vector<string> c;
+
+	string s,o;
+	cout << "введите текст\n";
+	getline(cin, s);
+	cout << "введите символ ,на который нужно заменять числа\n";
+	char k;
+	cin >> k;
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (s[i] == '0' || s[i] == '1' || s[i] == '2' || s[i] == '3' || s[i] == '4' || s[i] == '5' || s[i] == '6' || s[i] == '7' || s[i] == '8' || s[i] == '9')
+			o += s[i];
+		else
+			if (o != "")
+			{
+				c.push_back(o);
+				o.clear();
+			}
+	
+	}
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (s[i] == '0' || s[i] == '1' || s[i] == '2' || s[i] == '3' || s[i] == '4' || s[i] == '5' || s[i] == '6' || s[i] == '7' || s[i] == '8' || s[i] == '9')
+			o += s[i];
+		else
+			if (o != "")
+			{
+				if (stoi(o) == c.size())
+					for (int l = (i - o.size()); l < i; l++)
+						s[l] = k;
+				o.clear();
+			}
+	
+	}
+	cout << "изменённый текст:\n";
+	cout << s;
+}

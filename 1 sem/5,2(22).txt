@@ -1,0 +1,78 @@
+#include<iostream>
+#include <stdio.h>
+#include <string.h>
+#include<vector>
+#include<string>
+using namespace std;
+void input(vector<int> &c, vector<vector<int>> &a)
+{
+	cout << "введите размер стороны массива:\n";
+	int n;
+	cin >> n;
+	c.resize(n);
+	a.resize(n, vector<int>(n));
+	cout << "введите одномерный массив:\n";
+	for (int i = 0; i < n; i++)
+	{
+		cin >> c[i];
+	}
+	cout << "введите двумерный массив:\n";
+	for (int i = 0; i < n; i++)
+		for (int l = 0; l < n; l++)
+		{
+			cin >> a[i][l];
+		}
+}
+void check(vector<int>& c, vector<int> &k)
+{
+	for (int i = 0; i < c.size(); i++)
+		for (int l = 0; l < c.size(); l++)
+			if ((c[i] == c[l])&&(i!=l))
+			{
+				int o1 = 0,o2=0;
+				for (int t = 0; t < k.size(); t++)
+				{
+					if (k[t] == i)
+						o1 = 1;
+					if (k[t == l])
+						o2 = 1;
+				}
+				if(o1==0)
+				k.push_back(i);
+				if(o2==0)
+				k.push_back(l);
+			}
+	if (k.size() == 0)
+	{
+		cout << "равных эллементов в массиве нет\n";
+	}
+}
+void izm(vector<int>& c,vector<vector<int>>& a, vector<int>& k)
+{
+	for (int i = 0; i < k.size(); i++)
+	{
+		c[k[i]] += c[k[i]];
+		for (int l = 0; l < a.size(); l++)
+		{
+			c[k[i]] += a[k[i]][l];
+		}
+	}
+}
+void out(vector<int> c)
+{
+	cout << "вывод измененного массива:\n";
+	for (int i = 0; i < c.size(); i++)
+	{
+		cout << c[i] << " ";
+	}
+}
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	vector<int> c,k;
+	vector<vector<int>> a;
+	input(c, a);
+	check(c,k);
+	izm(c, a, k);
+	out(c);
+}
