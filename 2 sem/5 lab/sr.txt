@@ -1,0 +1,55 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include "Header.h"
+#include <stdio.h>  
+#include <conio.h>  
+#include <math.h>   
+#include <stdlib.h> 
+#include <iostream> 
+#include <time.h> 
+#include<cstdio>
+using namespace std;
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	FILE* f;
+	if ((f = fopen("C:\\source\\repos\\lab5\\p.txt", "a+")) == NULL)
+	{
+		cout << "ошибка открытия файла\n";
+		return(0);
+	}
+	double** x, r;
+	int n;
+	fscanf(f, "%d %lf", &n,&r);
+	cout << r;
+	x = new double* [2];
+	for (int i = 0; i < 2; i++)
+		x[i] = new double[n];
+	vv(x, n, f);
+	fclose(f);
+	if ((f = fopen("C:\\source\\repos\\lab5\\output.txt", "w")) == NULL)
+	{
+		cout << "ошибка открытия второго файла\n";
+		return(0);
+	}
+	viv(x, n, 0,r);
+	output(x, n, f, 0,r);
+	cout << "\n";
+	
+	if (check(x, r, n) == 0)
+	{
+		izm(x, r, n);
+		viv(x, n, 1,r);
+		output(x, n, f, 1, r);
+	}
+	else
+	{
+		cout << "между точками в данном массиве есть расстояние меньше r\n";
+		fprintf(f,"между точками в данном массиве есть расстояние меньше r\n");
+	}
+
+	for (int i = 0; i < 2; i++)
+		delete[]x[i];
+	delete[]x;
+
+	fclose(f);
+}

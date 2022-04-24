@@ -1,0 +1,6 @@
+#include<cstdio>
+void vv(double** x, int n, FILE* f);
+void output(double** x, int n, FILE* f,int o, double r);
+int check(double** x, double r, int n);
+void izm(double** x, double r, int n);
+void viv(double** x, int n, int o, double r);
