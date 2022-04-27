@@ -1,90 +1,95 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include<iostream>
-#include<iomanip>
-#include<stdio.h>
-#include<sstream>
-#include<cstdio>
-#include<string>
-#include<stdlib.h>
+#include <iostream>
+#include <iomanip>
+#include <stdio.h>
+#include <sstream>
+#include <cstdio>
+#include <string>
+#include <stdlib.h>
 using namespace std;
 struct list
 {
-	int nm;
-	string otpr, prib;
-	int totpr, tput;
-	int cost;
+    int nm;
+    string otpr, prib;
+    int totpr, tput;
+    int cost;
 };
-void vv(list* &x, int &i)
+void vv(list*& x, int& t)
 {
-	FILE* f;
-	string s;
-	char *n;
-	n = new char;
-	if ((f = fopen("C:\\source\\repos\\lab 2.7\\lab 2.7\\f.txt", "a+")) == NULL)
-	{
-		cout << "ошибка открытия файла\n";
-		exit;
-	}
-	while (!feof(f))
-		while (*n != '/n')
-		{
-			x=(list*)realloc(x,i+1);
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].nm = stoi(s);
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].otpr = s;
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].prib = s;
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].totpr = stoi(s);
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].tput = stoi(s);
-			s.clear();
-			while (*n != ' ' || *n != '\n')
-			{
-				fgets(n, 1, f);
-				s += n;
-			}
-			x[i].cost = stoi(s);
-			s.clear();
-			i++;
-		}
-	fclose(f);
-	i += 1;
-	for (int k = 0; k < i; k++)
-	{
-		cout << x[i].nm << " " << x[i].otpr << " " << x[i].prib;
-	}
+    FILE* f;
+    string s;
+    char n = '#';
+    if ((f = fopen("f.txt", "a+")) == NULL)
+    {
+        cout << "ошибка открытия файла\n";
+        exit(0);
+    }
+    fscanf(f, "%d ", &t);
+    x = new list[t];
+    for (int i = 0; i < t; i++)
+    {
+            s.clear();
+            char n = '#';
+            while (n != ' ' && n != '\n')
+            {
+                n = fgetc(f);
+                s.push_back(n);
+            }
+            x[i].nm = stoi(s);
+            cout << x[i].nm << '\n';
+            s.clear();
+            n = '#';
+            while (n != ' ' && n != '\n')
+            {
+                n = fgetc(f);
+                s.push_back(n);
+            }
+            x[i].otpr = s;
+            cout << x[i].otpr << '\n';
+            s.clear();
+            n = '#';
+            while (n != ' ' && n != '\n')
+            {
+                n = fgetc(f);
+                s.push_back(n);
+            }
+            x[i].prib = s;
+            cout << x[i].prib << '\n';
+            s.clear();
+            n = '#';
+            while (n != ' ' && n != '\n')
+            {
+                n = fgetc(f);
+                s.push_back(n);
+            }
+            x[i].totpr = stoi(s);
+            cout << x[i].totpr << '\n';
+            s.clear();
+            n = '#';
+            while (n != ' ' && n != '\n')
+            {
+                n = fgetc(f);
+                s += n;
+            }
+            x[i].tput = stoi(s);
+            cout << x[i].tput << '\n';
+            s.clear();
+            n = '#';
+            while (n != ' ' && n != '\n' && !feof(f))
+            {
+                n = fgetc(f);
+                s += n;
+            }
+            x[i].cost = stoi(s);
+            cout << x[i].cost << '\n';
+            s.clear();
+    }
+    fclose(f);
 }
 int main()
 {
-	setlocale(LC_ALL, "Russian");
-	int i=0;
-	list* x;
-	vv(x, i);
+    int i = 0;
+    list* x;
+    x = new list[1];
+    vv(x, i);
 }
