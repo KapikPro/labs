@@ -8,178 +8,162 @@
 #include <stdlib.h>
 #include<algorithm>
 using namespace std;
+char* ANSIUpperCase(char* s, char* S) {
+    S = strcpy(S, s);
+    char* ch = S;
+    while (*ch) {
+        if (*ch >= 'a' && *ch <= 'z' || *ch >= 'а' && *ch <= 'я') *ch = *ch - 32;
+        if (*ch == 'ё') *ch = 'Ё';
+        ch++;
+    }
+    return S;
+}
 struct list
 {
     int nm;
-    string otpr, prib;
+    char otpr[31], prib[31];
     double totpr, tput;
     int cost;
 };
-void vv( int& t)
+void vv()
 {
-    FILE* f;
-    string s;
+    FILE* f, * fr;
+    char s[17];
     char n = '#';
     if ((f = fopen("fin.txt", "r")) == NULL)
     {
         cout << "ошибка открытия файла\n";
         exit(0);
     }
-    fscanf(f, "%d ", &t);
-    list* x;
-    x = new list[t];
-    for (int i = 0; i < t; i++)
-    {
-            s.clear();
-            char n = '#';
-            while (n != ' ' && n != '\n')
-            {
-                n = fgetc(f);
-                if (n != ' ' && n != '\n')
-                s.push_back(n);
-            }
-            x[i].nm = stoi(s);
-            s.clear();
-            n = '#';
-            while (n != ' ' && n != '\n')
-            {
-                n = fgetc(f);
-                if (n != ' ' && n != '\n')
-                s.push_back(n);
-            }
-            x[i].otpr = s;
-            s.clear();
-            n = '#';
-            while (n != ' ' && n != '\n')
-            {
-                n = fgetc(f);
-                if(n!=' ' && n != '\n')
-                s.push_back(n);
-            }
-            x[i].prib = s;
-            s.clear();
-            n = '#';
-            while (n != ' ' && n != '\n')
-            {
-                n = fgetc(f);
-                if (n != ' ' && n != '\n')
-                s.push_back(n);
-            }
-            x[i].totpr = stoi(s);
-            s.clear();
-            n = '#';
-            while (n != ' ' && n != '\n')
-            {
-                n = fgetc(f);
-                if (n != ' ' && n != '\n')
-                s += n;
-            }
-            x[i].tput = stoi(s);
-            s.clear();
-            n = '#';
-            while (n != ' ' && n != '\n' && !feof(f))
-            {
-                n = fgetc(f);
-                if (n != ' ' && n != '\n')
-                s += n;
-            }
-            x[i].cost = stoi(s);
-            s.clear();
-    }
-    fclose(f);
-    if ((f = fopen("fout.txt", "w")) == NULL)
+    if ((fr = fopen("fout.txt", "wb")) == NULL)
     {
         cout << "ошибка открытия файла\n";
         exit(0);
     }
-    fwrite(x,sizeof(list),t,f);
-    fclose(f);
-}
-void check(int t)
-{
-    FILE* f;
-    list* x;
-    int p = 0;
-    x = new list[t];
-    if ((f = fopen("fout.txt", "r")) == NULL)
-    {
-        cout << "ошибка открытия файла\n";
-        exit(0);
-    }
-    fread(x, sizeof(list), t, f);
-    for (int i = 0; i < t; i++)
-    {
-        if (((x[i].otpr) == "Москва") && ((x[i].prib) == "Санкт-Петербург") && x[i].totpr > 7.0 && x[i].totpr < 9.0)
-        {
-            cout << "искомый маршрут найден в " << i + 1 << "ой строке(считая с 1)\n";
-            p++;
-        }
 
+    list x;
+    int k = 0;
+
+    while (true)
+    {
+        
+        fscanf(f, "%d", &x.nm);
+        if (feof(f) != 0)
+            break;
+        fscanf(f, "%s", &x.otpr);
+        fscanf(f, "%s", &x.prib);
+        fscanf(f, "%lf", &x.totpr);
+        fscanf(f, "%lf", &x.tput);
+        fscanf(f, "%d", &x.cost);
+        fwrite(&x, sizeof(list), 1, fr);
     }
-    if (p < 1)
-        cout << "искомый маршрут не найден\n";
     fclose(f);
+
+    fclose(fr);
 }
-void izm(int t)
+void check()
 {
     FILE* f;
-    list* x;
-    int p = 0;
-    x = new list[t];
-    if ((f = fopen("fout.txt", "r")) == NULL)
-    {
-        cout << "ошибка открытия файла\n";
-        exit(0);
-    }
-    fread(x, sizeof(list), t, f);
-    fclose(f);
-    for (int i = 0; i < t; i++)
-    {
-        double c, d;
-        d = modf(x[i].totpr, &c);
-        if (c > 23 ||c<0 || d > 59||d<0)
-        {
-            p++;
-            if(p==1)
-            cout << "номер| |пункт отправления| |пункт назначения| |время отправки| |время пути| |цена\n";
-            cout << "корректировка в данной строке произведена:\n";
-            x[i].totpr = 0.0;
-            printf("%5d| |%17s| |%16s| |%14.2f| |%10.2f| |%4d\n", x[i].nm, x[i].otpr.data(), x[i].prib.data(), x[i].totpr, x[i].tput, x[i].cost);
-        }
-    }
-    if (p != 0)
-    {
-        if ((f = fopen("fout.txt", "w")) == NULL)
-        {
-            cout << "ошибка открытия файла\n";
-            exit(0);
-        }
-        fwrite(x, sizeof(list), t, f);
-        fclose(f);
-    }
-}
-void viv(int t)
-{
-    FILE* f;
-    list* x;
-    x = new list[t];
-    if ((f = fopen("fout.txt", "a+")) == NULL)
+    list x;
+    int p = 0, c=0, t1=0,t2=0,t3=0;
+    if ((f = fopen("fout.txt", "rb")) == NULL)
     {
         cout << "ошибка открытия файла\n";
         exit(0);
     }
     cout << "номер| |пункт отправления| |пункт назначения| |время отправки| |время пути| |цена\n";
-    fread(x, sizeof(list), t, f);
-    for (int i = 0; i < t; i++)
+    while (true)
     {
-         printf("%5d| |%17s| |%16s| |%14.2f| |%10.2f| |%4d\n", x[i].nm, x[i].otpr.data(), x[i].prib.data(), x[i].totpr, x[i].tput, x[i].cost);
+        t1 = 0, t2 = 0, t3 = 0;
+        c++;
+        char b[30];
+        fread(&x, sizeof(list), 1, f);
+        if (feof(f))
+            break;
+        strcpy(b, x.otpr);
+        if (!(strcmp(ANSIUpperCase(x.otpr,b), "МОСКВА")))
+        {
+           // t1++;
+            if(!strcmp(ANSIUpperCase(x.prib, b), "САНКТ-ПЕТЕРБУРГ"))
+            {
+                //t2++;
+                if ((x.totpr >= 7.0) && (x.totpr <= 9.0))
+                {
+                   // t3++;
+                    cout << "искомый маршрут найден в слудющей строке:\n";
+                    p++;
+                    printf("%5d| |%17s| |%16s| |%14.2f| |%10.2f| |%4d\n", x.nm, x.otpr, x.prib, x.totpr, x.tput, x.cost);
+                }
+            }
+        }
+        //cout << t1 << " " << t2 << " " << t3 << "\n";
+    }
+    if (p < 1)
+        cout << "искомый маршрут не найден\n";
+    fclose(f);
+}
+ void izm()
+{
+    FILE* f;
+    list x;
+    int p = 0,o=0;
+    if ((f = fopen("fout.txt", "rb+")) == NULL)
+    {
+        cout << "ошибка открытия файла\n";
+        exit(0);
+    }
+    while (true)
+    {
+        o = ftell(f);
+        fread(&x, sizeof(list), 1, f);
+        if (feof(f) != 0)
+            break;
+            double c, d;
+            d = modf(x.totpr, &c);
+            d *= 100;
+            d = (int)d;
+            if (c > 23 || c < 0 || d > 59 || d < 0 || (x.totpr<0))
+            {
+                p++;
+                if (p == 1)
+                  cout << "номер| |пункт отправления| |пункт назначения| |время отправки| |время пути| |цена\n";
+                cout << "корректировка в данной строке произведена:\n";
+                x.totpr = 0.0;
+                printf("%5d| |%17s| |%16s| |%14.2f| |%10.2f| |%4d\n", x.nm, x.otpr, x.prib, x.totpr, x.tput, x.cost);
+                fseek(f,o, SEEK_SET);
+                fwrite(&x, sizeof(list), 1, f);
+                fseek(f,0, SEEK_CUR);
+            }
+
+    }
+    if (p == 0)
+        cout << "изменений не было\n";
+    fclose(f);
+}
+
+void viv()
+{
+    FILE* f;
+    list x;
+    if ((f = fopen("fout.txt", "rb")) == NULL)
+    {
+        cout << "ошибка открытия файла\n";
+        exit(0);
+    }
+    cout << "номер| |пункт отправления| |пункт назначения| |время отправки| |время пути| |цена\n";
+    while (true)
+    {
+        fread(&x, sizeof(list), 1, f);
+        if (feof(f) != 0)
+            break;
+            printf("%5d| |%17s| |%16s| |%14.2f| |%10.2f| |%4d\n", x.nm, x.otpr, x.prib, x.totpr, x.tput, x.cost);
     }
     fclose(f);
 }
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    int t = 0,k=6;
+    int k = 6;
     while (k != 5)
     {
         cout << "\n";
@@ -189,16 +173,16 @@ int main()
         switch (k)
         {
         case(1):
-            vv(t);
+            vv();
             break;
         case(2):
-            check(t);
+            check();
             break;
         case(3):
-            izm(t);
+            izm();
             break;
         case(4):
-            viv(t);
+            viv();
             break;
         default:
         {
