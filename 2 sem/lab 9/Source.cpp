@@ -40,7 +40,7 @@ int counting(int a,int b,double *x)
     int count = 0;
     if (b - a != 0 && b-a!=1)
     {
-        count+=counting(a, (a+b) / 2, x);
+        count+=counting(a, (a+b) / 2-1, x);
         count+=counting((a+b) / 2, b, x);
     }
     else
