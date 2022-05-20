@@ -2,3 +2,4 @@ main.exe
 *.vcxproj
 *.vcxproj.user
 *.vcxproj.filters
+x64*
