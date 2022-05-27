@@ -38,7 +38,6 @@ int main()
 	char ch;
 
 	do {
-
 		printf("\nN - создать новый стек; V - вывод; D - решение; F - освободить;E - конец.\nВаш выбор?\n");
 		ch = getchar();   fflush(stdin);
 		ch = toupper(ch);
@@ -109,10 +108,12 @@ TElem* CreateStack(TElem* St)
 	TInfo Info;
 	char nums[5];
 
-	while (1) {
-		printf("num =?");
-		printf("1\n");
+	while (1) 
+	{
+		printf(" введите num или **\n");
 		fgets(nums, 4, stdin);
+		if (nums[1] == '*' && nums[0] == '*')
+			break;
 		fflush(stdin);
 		Info.num = atoi(nums);
 		St = PushStack(St, Info);
