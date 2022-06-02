@@ -7,12 +7,15 @@
 
 struct NodeInfo
 {
-	int number, cost;
-	char final_point[64], start_point[64];
-	double travel_time, start_time;
+	int number;
+	char final_point[64];
+	char start_point[64];
+	double start_time;
+	double travel_time;
+	int cost;
 };
 
-struct DequeNode
+struct DequeNode 
 {
 	NodeInfo info;
 	DequeNode* next = nullptr;
@@ -25,15 +28,17 @@ struct LinkedDeque
 	DequeNode* last = nullptr;
 };
 
-void init(LinkedDeque& ld)
+void init(LinkedDeque& ld, const NodeInfo& info)
 {
-	ld.first = nullptr;
-	ld.last = nullptr;
+	auto new_node = (DequeNode*)malloc(sizeof(DequeNode));
+	new_node->info = info;
+
+	ld.first = ld.last = new_node;
 }
 
 bool empty(const LinkedDeque& ld)
 {
-	if (ld.first!=nullptr && ld.last!=nullptr)
+	if (ld.first != nullptr && ld.last != nullptr)
 		return false;
 	return true;
 }
@@ -99,6 +104,7 @@ void clear(LinkedDeque& ld)
 	ld.first = nullptr;
 	ld.last = nullptr;
 }
+
 void fread_info(NodeInfo& info)
 {
 	FILE* f;
@@ -115,6 +121,7 @@ void fread_info(NodeInfo& info)
 	fscanf(f, "%d", &info.cost);
 	fclose(f);
 }
+
 void read_info(NodeInfo& info)
 {
 	scanf("%d", &info.number);
@@ -136,20 +143,22 @@ void log(LinkedDeque& ld)
 
 	printf("%p %p\n", ld.first, ld.last);
 }
+
 void print(const LinkedDeque& ld)
 {
-	int c = 0;
 	if (empty(ld))
 	{
 		printf("вы не создали стек или не заполнили, пойдите и исправьте..\n");
 		return;
 	}
+
+	int c = 0;
 	auto cur_node = ld.first;
 	printf("\n", c);
-	while (cur_node)
+	while (cur_node != nullptr)
 	{
 		printf("--------------------------------------------\n");
-		printf("%dый элемент\n",c);
+		printf("%dый элемент\n", c);
 		c++;
 		printf("%d\n", cur_node->info.number);
 		printf("%s\n", cur_node->info.start_point);
