@@ -212,6 +212,7 @@ void solve(const  ArrayDeque ad1, ArrayDeque& ad2, ArrayDeque& ad3)
 }
 void read_info(ElemInfo& info)
 {
+	printf("введите данные:\n");
 	scanf("%d", &info.number);
 	scanf("%s", info.start_point);
 	scanf("%s", info.final_point);

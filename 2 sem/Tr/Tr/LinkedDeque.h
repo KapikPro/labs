@@ -141,6 +141,7 @@ void fread_info(NodeInfo& info, FILE* f)
 
 void read_info(NodeInfo& info)
 {
+	printf("введите данные:\n");
 	scanf("%d", &info.number);
 	scanf("%s", info.start_point);
 	scanf("%s", info.final_point);

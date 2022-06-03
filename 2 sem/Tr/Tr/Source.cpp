@@ -207,15 +207,7 @@ int main()
 				printf("вы уже создали дек, идите с миром..\n");
 				break;
 			}
-			printf("введите 1, если хотите ввести его с клавиатеры и 2, если из файла\n");
-			int o;
-			ElemInfo j;
-
-			scanf("%d", &o);
-			if (o == 2)
-				fread_info(j, f);
-			else
-				read_info(j);
+			printf("пустые деки созданы\n");
 			c = 1;
 			init(a);
 			init(b);
