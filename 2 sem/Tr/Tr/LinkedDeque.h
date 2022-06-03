@@ -6,7 +6,7 @@
 #include <stdexcept> 
 #include <math.h> 
 #include <string>
-#include <algoriths>
+#include <algorithm>
 
 struct NodeInfo
 {
@@ -37,6 +37,7 @@ void init(LinkedDeque& ld, const NodeInfo& info)
 	new_node->info = info;
 
 	ld.first = ld.last = new_node;
+
 }
 
 bool empty(const LinkedDeque& ld)
@@ -61,6 +62,7 @@ void push_back(LinkedDeque& ld, const NodeInfo& info)
 		ld.last->next = new_node;
 		ld.last = new_node;
 	}
+
 }
 
 void pop_back(LinkedDeque& ld)
@@ -71,6 +73,7 @@ void pop_back(LinkedDeque& ld)
 	auto new_last = ld.last->prev;
 	free(ld.last);
 	ld.last = new_last;
+
 }
 
 void push_front(LinkedDeque& ld, const NodeInfo& info)
@@ -88,6 +91,7 @@ void push_front(LinkedDeque& ld, const NodeInfo& info)
 		ld.first->prev = new_node;
 		ld.first = new_node;
 	}
+
 }
 void pop_front(LinkedDeque& ld)
 {
@@ -97,6 +101,7 @@ void pop_front(LinkedDeque& ld)
 	auto new_first = ld.first->next;
 	free(ld.first);
 	ld.first = new_first;
+
 }
 
 void time_check(double& time)
@@ -109,6 +114,7 @@ void time_check(double& time)
 	}
 	if (time < 0)
 		time = 0;
+
 }
 
 void clear(LinkedDeque& ld)
@@ -130,6 +136,7 @@ void fread_info(NodeInfo& info, FILE* f)
 	fscanf(f, "%d", &info.cost);
 	time_check(info.start_time);
 	time_check(info.travel_time);
+
 }
 
 void read_info(NodeInfo& info)
@@ -147,26 +154,61 @@ void read_info(NodeInfo& info)
 
 void log(LinkedDeque& ld)
 {
-	FILE* f;
-	if ((f = fopen("log.txt", "w")) == NULL)
+	FILE* t;
+	if ((t = fopen("log.txt", "a")) == NULL)
 	{
 		printf("ошибка открытия файла\n");
 		exit(0);
 	}
+	fprintf(t, "|NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN|\n");
+	fprintf(t, "|------------------------------------------|\n");
+	fprintf(t, "|------------------------------------------|\n");
+	fprintf(t, "\nначало дека %p, конец дека %p\n", ld.first, ld.last);
 
-	printf("%p %p\n", ld.first, ld.last);
+	if (empty(ld))
+	{
+		fprintf(t,"вы не создали дек или не заполнили..\n");
+		return;
+	}
+
+	auto cur_node = ld.first;
+	while (cur_node != nullptr)
+	{
+		fprintf(t, "%d\n", cur_node->info.number);
+		fprintf(t, "%s\n", cur_node->info.start_point);
+		fprintf(t, "%s\n", cur_node->info.final_point);
+		fprintf(t, "%4.2lf\n", cur_node->info.start_time);
+		fprintf(t, "%4.2lf\n", cur_node->info.travel_time);
+		fprintf(t, "%d\n", cur_node->info.cost);
+		fprintf(t, "--------------------------------------------\n");
+		cur_node = cur_node->next;
+	}
+	fprintf(t, "|------------------------------------------|\n");
+	fprintf(t, "|------------------------------------------|\n");
+	fprintf(t, "|KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK|\n");
+	fclose(t);
 }
 
 void reverse(LinkedDeque& ld)
 {
+	auto cur_node = ld.first;
 
+	while (cur_node != nullptr)
+	{
+		std::swap(cur_node->prev, cur_node->next);
+		cur_node = cur_node->prev;
+	}
+
+	std::swap(ld.first, ld.last);
+
+	log(ld);
 }
 
 void print(const LinkedDeque& ld)
 {
 	if (empty(ld))
 	{
-		printf("вы не создали стек или не заполнили..\n");
+		printf("вы не создали дек или не заполнили..\n");
 		return;
 	}
 
@@ -203,23 +245,25 @@ char* uppercase(char* s)
 	return S;
 }
 
-void solve(const LinkedDeque& ld1, LinkedDeque& ld2)
+void solve(const LinkedDeque& ld1, LinkedDeque& ld2, LinkedDeque& ld3)
 {
 	if (empty(ld1))
 	{
-		printf("вы не создали стек или не заполнили, пойдите и исправьте..\n");
+		printf("вы не создали дек или не заполнили, пойдите и исправьте..\n");
 		return;
 	}
 	auto cur_node1 = ld1.first;
-	auto cur_node2 = ld2.first;
 	while (cur_node1 != nullptr)
 	{
 		if (strcmp(uppercase(cur_node1->info.start_point), "МОСКВА") == 0 &&
 			strcmp(uppercase(cur_node1->info.final_point), "САНКТ-ПЕТЕРБУРГ") == 0 &&
 			cur_node1->info.start_time >= 7.00 && cur_node1->info.start_time <= 9.00)
 			push_back(ld2, cur_node1->info);
+		else
+			push_back(ld3, cur_node1->info);
+
 		cur_node1 = cur_node1->next;
 	}
-	printf("второй стэк был заполнен походящими элементами\n");
+	printf("второй дек был заполнен походящими элементами, а третий неподходящими\n");
 }
 #endif // LINKED_DEQUE_
