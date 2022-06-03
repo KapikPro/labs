@@ -5,6 +5,8 @@
 #include <cstdint> 
 #include <stdexcept> 
 #include <math.h> 
+#include <string>
+#include <algoriths>
 
 struct NodeInfo
 {
@@ -155,6 +157,11 @@ void log(LinkedDeque& ld)
 	printf("%p %p\n", ld.first, ld.last);
 }
 
+void reverse(LinkedDeque& ld)
+{
+
+}
+
 void print(const LinkedDeque& ld)
 {
 	if (empty(ld))
@@ -185,13 +192,12 @@ void print(const LinkedDeque& ld)
 
 char* uppercase(char* s)
 {
-
-	char S[64];
+	static char S[64];
 	strcpy(S, s);
 	char* ch = S;
 	while (*ch) {
-		if (*ch >= 'a' && *ch <= 'z' || *ch >= 'à' && *ch <= 'ÿ') *ch = *ch - 32;
-		if (*ch == '¸') *ch = '¨';
+		if (*ch >= 'a' && *ch <= 'z' || *ch >= 'а' && *ch <= 'я')
+			*ch = *ch - 32;
 		ch++;
 	}
 	return S;
@@ -208,9 +214,12 @@ void solve(const LinkedDeque& ld1, LinkedDeque& ld2)
 	auto cur_node2 = ld2.first;
 	while (cur_node1 != nullptr)
 	{
-		if (uppercase(cur_node1->info.start_point) == "МОСКВА" && uppercase(cur_node1->info.final_point) == "САНКТ-ПЕТЕРБУРГ" && cur_node1->info.start_time >= 7.00 && cur_node1->info.start_time <= 9.00)
+		if (strcmp(uppercase(cur_node1->info.start_point), "МОСКВА") == 0 &&
+			strcmp(uppercase(cur_node1->info.final_point), "САНКТ-ПЕТЕРБУРГ") == 0 &&
+			cur_node1->info.start_time >= 7.00 && cur_node1->info.start_time <= 9.00)
 			push_back(ld2, cur_node1->info);
 		cur_node1 = cur_node1->next;
 	}
+	printf("второй стэк был заполнен походящими элементами\n");
 }
 #endif // LINKED_DEQUE_
