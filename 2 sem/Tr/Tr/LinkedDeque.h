@@ -214,7 +214,6 @@ void print(const LinkedDeque& ld)
 
 	int c = 0;
 	auto cur_node = ld.first;
-	printf("\n", c);
 	while (cur_node != nullptr)
 	{
 		printf("--------------------------------------------\n");
