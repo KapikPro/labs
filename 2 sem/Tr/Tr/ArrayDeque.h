@@ -5,6 +5,7 @@
 #include <cstdint> 
 #include <cstdlib>
 #include <algorithm> 
+#include <string>
 
 struct ElemInfo
 {
@@ -18,34 +19,34 @@ struct ElemInfo
 
 struct ArrayDeque
 {
-	ElemInfo* data;
-	size_t capacity;
-	size_t first;
-	size_t last;
+	ElemInfo* data = nullptr;
+	size_t capacity = 0;
+	size_t first = 0;
+	size_t last = 0;
 };
-
-bool empty(const ArrayDeque& ad)
-{
-	if (ad.first != 0 && ad.last != 0)
-		return false;
-	return true;
-}
 
 size_t size(const ArrayDeque& ad)
 {
 	if (ad.data == nullptr)
 		return 0;
 	if (ad.first > ad.last)
-		return ad.capacity - (ad.last - ad.first);
+		return ad.capacity - (ad.first - ad.last);
 	return ad.last - ad.first;
+}
+
+bool empty(const ArrayDeque& ad)
+{
+	if (ad.data == nullptr || size(ad) == 0)
+		return true;
+	return false;
 }
 
 void init(ArrayDeque& ad)
 {
-	ad.data = (ElemInfo*)malloc(sizeof(ElemInfo));
-	ad.capacity = 1;
-	ad.first = 0;
-	ad.last = 0;
+	ad.data = (ElemInfo*)malloc(2 * sizeof(ElemInfo));
+	ad.capacity = 2;
+	ad.first = 1;
+	ad.last = 1;
 }
 
 void clear(ArrayDeque& ad)
@@ -61,7 +62,7 @@ void clear(ArrayDeque& ad)
 
 void push_back(ArrayDeque& ad, const ElemInfo& info)
 {
-	if (size(ad) == ad.capacity)
+	if (size(ad) == ad.capacity - 1)
 	{
 		ad.capacity *= 2;
 		ad.data = (ElemInfo*)realloc(ad.data, ad.capacity * sizeof(ElemInfo));
@@ -71,14 +72,21 @@ void push_back(ArrayDeque& ad, const ElemInfo& info)
 		ad.last = 1;
 	else
 		++ad.last;
-
-	*(ad.data + ad.last - 1) = info;
+	(ad.data + ad.last - 1)->number = info.number;
+	strcpy((ad.data + ad.last - 1)->final_point, info.final_point);
+	strcpy((ad.data + ad.last - 1)->start_point, info.start_point);
+	(ad.data + ad.last - 1)->cost = info.cost;
+	(ad.data + ad.last - 1)->start_time = info.start_time;
+	(ad.data + ad.last - 1)->travel_time = info.travel_time;
 }
 
 void pop_back(ArrayDeque& ad)
 {
 	if (size(ad) == 0)
-		throw std::logic_error("erorr: пустой дек");
+	{
+		printf("дек уже и так пустой\n");
+		return;
+	}
 
 	if (ad.last == 1)
 		ad.last = ad.capacity;
@@ -88,7 +96,7 @@ void pop_back(ArrayDeque& ad)
 
 void push_front(ArrayDeque& ad, const ElemInfo& info)
 {
-	if (size(ad) == ad.capacity)
+	if (size(ad) == ad.capacity - 1)
 	{
 		ad.capacity *= 2;
 		ad.data = (ElemInfo*)realloc(ad.data, ad.capacity);
@@ -120,8 +128,7 @@ void reverse(ArrayDeque& ad)
 
 void print(const ElemInfo& info)
 {
-	printf("--------------------------------------------\n");
-	// С++
+
 	printf("%d\n", info.number);
 	printf("%s\n", info.start_point);
 	printf("%s\n", info.final_point);
@@ -170,17 +177,19 @@ void log(ArrayDeque& ad)
 
 	for (size_t i = ad.first; i != ad.last;)
 	{
-		printf("%d\n", ad.data[i].number);
-		printf("%s\n", ad.data[i].start_point);
-		printf("%s\n", ad.data[i].final_point);
-		printf("%4.2lf\n", ad.data[i].start_time);
-		printf("%4.2lf\n", ad.data[i].travel_time);
-		printf("%d\n", ad.data[i].cost);
-		printf("--------------------------------------------\n");
-		if (i == ad.capacity - 1)
+		fprintf(t,"%d\n", ad.data[i].number);
+		fprintf(t,"%s\n", ad.data[i].start_point);
+		fprintf(t,"%s\n", ad.data[i].final_point);
+		fprintf(t,"%4.2lf\n", ad.data[i].start_time);
+		fprintf(t,"%4.2lf\n", ad.data[i].travel_time);
+		fprintf(t,"%d\n", ad.data[i].cost);
+		fprintf(t,"--------------------------------------------\n");
+
+		++i;
+		if (i == ad.last)
+			break;
+		else if (i == ad.capacity)
 			i = 0;
-		else
-			++i;
 	}
 	fprintf(t, "|------------------------------------------|\n");
 	fprintf(t, "|------------------------------------------|\n");
@@ -194,7 +203,10 @@ void solve(const  ArrayDeque ad1, ArrayDeque& ad2, ArrayDeque& ad3)
 		printf("вы не создали дек или не заполнили, пойдите и исправьте..\n");
 		return;
 	}
-
+	clear(ad2);
+	clear(ad3);
+	init(ad2);
+	init(ad3);
 	for (size_t i = ad1.first; i != ad1.last;)
 	{
 		if (strcmp(uppercase(ad1.data[i].start_point), "МОСКВА") == 0 &&
@@ -203,6 +215,7 @@ void solve(const  ArrayDeque ad1, ArrayDeque& ad2, ArrayDeque& ad3)
 			push_back(ad2, ad1.data[i]);
 		else
 			push_back(ad3, ad1.data[i]);
+
 		if (i == ad1.capacity - 1)
 			i = 0;
 		else
@@ -233,6 +246,6 @@ void fread_info(ElemInfo& info, FILE* f)
 	fscanf(f, "%d", &info.cost);
 	time_check(info.start_time);
 	time_check(info.travel_time);
-
 }
+
 #endif // ARRAY_DEQUE_

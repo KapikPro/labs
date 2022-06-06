@@ -86,12 +86,14 @@ int main()
 				//getchar();
 				break;
 			case 'Z':
-				printf("сколько элементов вы хотите удалить?/n");
+				printf("сколько элементов вы хотите удалить?\n");
 				int n;
 				scanf("%d", &n);
 				for (int i = 0; i < n; i++)
 				{
 					pop_back(a);
+					if (empty(a))
+						break;
 				}
 				log(a);
 				break;
@@ -189,11 +191,12 @@ int main()
 
 	bool c = 0;
 	char ch;
+	ArrayDeque a;
+	ArrayDeque b;
+	ArrayDeque k;
 	printf("введите букву для выбора действия:\n");
 	do {
-		ArrayDeque a;
-		ArrayDeque b;
-		ArrayDeque k;
+		
 
 		scanf("%c", &ch);
 		if (ch == '\n' || ch == ' ')
@@ -231,12 +234,14 @@ int main()
 			//getchar();
 			break;
 		case 'Z':
-			printf("сколько элементов вы хотите удалить?/n");
+			printf("сколько элементов вы хотите удалить?\n");
 			int n;
 			scanf("%d", &n);
 			for (int i = 0; i < n; i++)
 			{
 				pop_back(a);
+				if (size(a) == 0)
+					break;
 			}
 			log(a);
 			break;

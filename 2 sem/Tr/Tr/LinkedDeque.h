@@ -68,7 +68,10 @@ void push_back(LinkedDeque& ld, const NodeInfo& info)
 void pop_back(LinkedDeque& ld)
 {
 	if (empty(ld))
-		throw std::logic_error("erorr: пустой дек");
+	{
+		printf("дек уже и так пустой\n");
+		return;
+	}
 
 	auto new_last = ld.last->prev;
 	free(ld.last);
@@ -247,6 +250,8 @@ char* uppercase(char* s)
 
 void solve(const LinkedDeque& ld1, LinkedDeque& ld2, LinkedDeque& ld3)
 {
+	clear(ld2);
+	clear(ld3);
 	if (empty(ld1))
 	{
 		printf("вы не создали дек или не заполнили, пойдите и исправьте..\n");
