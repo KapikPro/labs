@@ -8,6 +8,14 @@
 #include<cstdlib>
 #include<string>
 using namespace std;
+int str_int(string n)
+{
+	stringstream a;
+	int b;
+	a << n;
+	a >> b;
+	return b;
+}
 void output(vector<vector<int>> a, vector<int> b)
 {
 	cout << "вывод двумерной матрицы:\n";
@@ -32,7 +40,7 @@ int check(string n)
 	for (int i = 0; i < n.size(); i++)
 	{
 		if (i == 0 && n[i] == '-')
-			k == 2;
+			k = 2;
 		else
 		if ((((int)n[i] < 48) || ((int)n[i] > 57)))
 		{
@@ -41,19 +49,16 @@ int check(string n)
 		}
 	}
 	if (k == 1)
+		if (str_int(n) == 0)
+			k = 3;
+	if (k == 1)
 		return 1;
 	else
 		if (k == 2)
 			return 2;
+	if(k==3)
+		return 3;
 		else return 0;
-}
-int str_int(string n)
-{
-	stringstream a;
-	int b;
-	a << n;
-	a >> b;
-	return b;
 }
 void manual_input(vector<vector<int>> &a, vector<int> &b)
 {
@@ -63,7 +68,7 @@ void manual_input(vector<vector<int>> &a, vector<int> &b)
 		for (int k = 0; k < a.size(); k++)
 		{
 			cin >> n;
-				while (check(n) != 1 && check(n) != 2)
+				while (check(n) != 1 && check(n) != 2 && check(n) != 3)
 				{
 					cout << "вы ввели нецелое число, пожалуйста, повторите ввод\n";
 					cin >> n;
@@ -74,13 +79,14 @@ void manual_input(vector<vector<int>> &a, vector<int> &b)
 	for (int i = 0; i < b.size(); i++)
 	{
 		cin >> n;
-		while (check(n) != 1 && check(n) != 2)
+		while (check(n) != 1 && check(n) != 2 && check(n) != 3)
 		{
 			cout << "вы ввели нецелое число, пожалуйста, повторите ввод\n";
 			cin >> n;
 		}
 		b[i] = str_int(n);
 	}
+	output(a, b);
 }
 void auto_input(vector<vector<int>> &a, vector<int> &b)
 {
@@ -94,7 +100,9 @@ void auto_input(vector<vector<int>> &a, vector<int> &b)
 		}
 	for (int i = 0; i < b.size(); i++)
 	{
-		n= n = rand() % 20 - 10;
+		 n = rand() % 20 - 10;
+		if (n == 0)
+			n = 1;
 		b[i] = n;
 	}
 	cout << "вывод двумерной матрицы и вектора:\n";
@@ -133,9 +141,9 @@ void input(vector<vector<int>> &a,vector<int> &b)
 	string n;
 	cout << "укажите размер квадратной матрицы вектора\n";
 	cin >> n;
-	while (check(n) != 1)
+	while (check(n) != 1 )
 		{
-			cout << "вы ввели нецелое число, пожалуйста, повторите ввод\n";
+			cout << "вы ввели неподходящее число, пожалуйста, повторите ввод\n";
 			cin >> n;
 		}
 	int k = str_int(n);
@@ -153,15 +161,22 @@ void input(vector<vector<int>> &a,vector<int> &b)
 		if (k == 2)
 			auto_input(a, b);
 		else
-			while (k!=1 && k!=2)
+		{
+			while (k != 1 && k != 2)
 			{
 				cout << "вы ввели неподходящее число, пожалуйста, повторите ввод\n";
 				cin >> k;
 			}
+			if (k == 1)
+				manual_input(a, b);
+			else
+				if (k == 2)
+					auto_input(a, b);
+		}
 }
 void fork(vector<vector<int>> a, vector<int> b)
 {
-	int min, max;
+	double min, max;
 
 	for (int i = 0; i < b.size(); i++)
 	{
@@ -173,21 +188,33 @@ void fork(vector<vector<int>> a, vector<int> b)
 		if (b[i] > max)
 		 max = b[i];
 		if (b[i] < min)
-			max = b[i];
+			min = b[i];
 	}
 	if (min == max)
+	{
 		cout << "у вектора максимум и минимум совпали\n";
+	}
 	else
-	if (max / min >= 2.0)
+		if (min == 0)
+			cout << "минимальное число равно нулю, на 0 делить нельзя, поэтому вычисление невозможно\n";
+		else
+	if ((max / min)>= 2.0)
 		count_column(a);
 	else
 		coutn_line(a);
 }
 int main()
 {
-	setlocale(LC_ALL, "Russian");
-	vector<vector<int>> a;
-	vector<int> b;
-	input(a, b);
-	fork(a, b);
+	int k=1;
+	
+	while (k != 0) {
+		setlocale(LC_ALL, "Russian");
+		vector<vector<int>> a;
+		vector<int> b;
+		input(a, b);
+		fork(a, b);
+		cout << "Для продолжения введите любое число кроме 0"<<endl;
+		cin >> k;
+	}
+	
 }
