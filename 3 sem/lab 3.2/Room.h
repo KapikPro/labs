@@ -11,6 +11,14 @@ class Room
 public:
 	Room(double length, double width, double height, int windows_count = 0)
 	{
+		try
+		{
+			// твой код
+		}
+		catch (exception ex)
+		{
+			// обработка ошибки
+		}
 		if (length <= 0)
 			throw std::exception("Invalid negative or null length");
 
