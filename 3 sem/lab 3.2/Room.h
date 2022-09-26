@@ -1,9 +1,8 @@
 ﻿#pragma once
-
 #include <vector>
 #include <exception> 
 #include <algorithm>
-#include<cmath>
+#include <cmath>
 #include <iostream> 
 
 class Room
@@ -11,25 +10,6 @@ class Room
 public:
 	Room(double length, double width, double height, int windows_count = 0)
 	{
-		try
-		{
-			// твой код
-		}
-		catch (exception ex)
-		{
-			// обработка ошибки
-		}
-		if (length <= 0)
-			throw std::exception("Invalid negative or null length");
-
-		if (width <= 0)
-			throw std::exception("Invalid negative or null width");
-
-		if (height <= 0)
-			throw std::exception("Invlalid negative or null height");
-
-		if (windows_count < 0 || windows_count > 4)
-			throw std::exception("Invlalid windows count");
 
 		_length = length;
 		_width = width;
@@ -70,7 +50,7 @@ public:
 
 	double get_window_area()
 	{
-		return 0.5 * _height * std::min(_width, _length);
+		return 0.25 * _height * std::min(_width, _length);
 
 	}
 
