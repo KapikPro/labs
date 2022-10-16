@@ -13,7 +13,7 @@ public:
 
 	T get_value()
 	{
-		return value;
+		return _value;
 	}
 
 	void set_value(T value)
@@ -43,8 +43,8 @@ public:
 
 private:
 	T _value;
-	ListNode* prev;
-	ListNode* next;
+	ListNode* _prev;
+	ListNode* _next;
 };
 
 template<typename T>
@@ -98,14 +98,14 @@ public:
 		}
 		else
 		{
-			auto prelast = last->get_prev;
+			auto prelast = last->get_prev();
 			delete last;
 			last = prelast;
-			last->set_next(fist);
+			last->set_next(first);
 			last->set_prev(prelast->prev);
 		}
 	}
-	void pop_back(T value)
+	void pop_front(T value)
 	{
 		if (first == nullptr)
 		{
@@ -113,9 +113,9 @@ public:
 		}
 		else
 		{
-			auto next_next = fist->get_next();
-			delete fist;
-			firt=next_next;
+			auto next_next = first->get_next();
+			delete first;
+			first=next_next;
 			last->set_next(next_next->next);
 			last->set_prev(last);
 		}

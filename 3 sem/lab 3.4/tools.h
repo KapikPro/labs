@@ -45,6 +45,18 @@ bool try_read_int(int& val)
 	if (buf.size() > 9 || !is_int(buf))
 		return 0;
 
+	val = str_to<int>(buf);
+	return 1;
+}
+
+bool try_read_double(int& val)
+{
+	string buf;
+	cin >> buf;
+
+	if (buf.size() > 9 || !is_int(buf))
+		return 0;
+
 	val = str_to<double>(buf);
 	return 1;
 }
@@ -52,7 +64,7 @@ bool try_read_int(int& val)
 template<typename T>
 void output(T* begin, T* end)
 {
-	for (t* i = begin; i != end; i++)
+	for (T* i = begin; i != end; i++)
 		cout << *i << " ";
 	cout << endl;
 }
