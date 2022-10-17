@@ -37,6 +37,21 @@ bool is_double(string str)
 	return true;
 }
 
+
+bool is_float(string str)
+{
+	int k = 0;
+	for (auto c : str)
+		if (c == '.' && k == 0)
+			k++;
+		else
+			if (c == '.' && k != 0)
+				return false;
+			else
+				if (c < '0' || c > '9')
+					return false;
+	return true;
+}
 bool try_read_int(int& val)
 {
 	string buf;
@@ -49,7 +64,7 @@ bool try_read_int(int& val)
 	return 1;
 }
 
-bool try_read_double(int& val)
+bool try_read_double(double& val)
 {
 	string buf;
 	cin >> buf;
@@ -60,7 +75,17 @@ bool try_read_double(int& val)
 	val = str_to<double>(buf);
 	return 1;
 }
+bool try_read_float(float& val)
+{
+	string buf;
+	cin >> buf;
 
+	if (buf.size() > 9 || !is_float(buf))
+		return 0;
+
+	val = str_to<float>(buf);
+	return 1;
+}
 template<typename T>
 void output(T* begin, T* end)
 {
