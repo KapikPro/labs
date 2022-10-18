@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <exception>
 using namespace std;
-template<typename T>
+
 class WeirdStack
 {
 public:
@@ -10,12 +10,12 @@ public:
 		_size = 0;
 		_capacity = 1;
 
-		_data = (T*)malloc(_capacity * sizeof(T));
+		_data = (int*)malloc(_capacity * sizeof(int));
 	}
 
 	~WeirdStack()
 	{
-		free((T*****)_data);
+		free((int*)_data);
 	}
 
 	int get_size()
@@ -23,28 +23,30 @@ public:
 		return _size;
 	}
 
-	void operator+ (T elem)
+	void operator++ ()
 	{
 		++_size;
-
+		int one = 1;
 		if (_size == _capacity)
 		{
 			_capacity *= 2;
-			_data = (T*)realloc(_data, _capacity * sizeof(T));
+			_data = (int*)realloc(_data, _capacity * sizeof(int));
 		}
 
-		_data[_size - 1] = elem;
+		_data[_size - 1] = one;
+
 	}
 
-	T operator-- (int)
+	void operator-- ()
 	{
 		if (_size == 0)
-			throw exception("kernel panic");
+			throw exception("ошибка, обьем равен 0");
 
-		return _data[--_size];
+		--_size;
+
 	}
 
-	T get_top()
+	int get_top()
 	{
 		if (_size == 0)
 			throw exception("ошибка");
@@ -55,6 +57,5 @@ public:
 private:
 	int _size;
 	int _capacity;
-
-	T* _data;
+	int* _data;
 };

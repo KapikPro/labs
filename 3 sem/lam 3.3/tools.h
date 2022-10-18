@@ -4,10 +4,10 @@
 #include<string>
 using namespace std;
 
-int str_to_int(string h)
+long str_to_long(string h)
 {
 	stringstream a;
-	int ch;
+	long ch;
 	a << h;
 	a >> ch;
 	return ch;
@@ -15,20 +15,22 @@ int str_to_int(string h)
 
 bool is_int(string str)
 {
-	for (auto c : str)
-		if (c < '0' || c > '9')
+	for (int c = 0; c < str.size(); c++)
+		if (c == 0 && str[c] == '-')
+			continue;
+		else
+		if ((str[c] < '0' || str[c] > '9'))
 			return false;
 	return true;
 }
-
-bool try_read_int(int &val)
+bool try_read_int(long &val)
 {
-	string buf;
-	cin >> buf;
+	string s;
+	cin >> s;
 
-	if (buf.size() > 9 || !is_int(buf))
+	if (s.size() > 18 || !is_int(s))
 		return 0;
 
-	val = str_to_int(buf);
+	val = str_to_long(s);
 	return 1;
 }
