@@ -16,40 +16,48 @@ T str_to(string h)
 
 bool is_int(string str)
 {
-	for (auto c : str)
-		if (c < '0' || c > '9')
-			return false;
+	for (int c = 0; c < str.size(); c++)
+		if (c == 0 && str[c] == '-')
+			continue;
+		else
+			if ((str[c] < '0' || str[c] > '9'))
+				return false;
 	return true;
 }
 
 bool is_double(string str)
 {
 	int k = 0;
-	for (auto c : str)
-		if (c == '.' && k == 0)
-			k++;
+	for (int c = 0; c < str.size(); c++)
+		if (c == 0 && str[c] == '-')
+			continue;
 		else
-			if (c == '.' && k != 0)
-				return false;
+			if (c == '.' && k == 0)
+				k++;
 			else
-		if (c < '0' || c > '9')
-			return false;
+				if (c == '.' && k != 0)
+					return false;
+				else
+			if ((str[c] < '0' || str[c] > '9'))
+				return false;
 	return true;
 }
-
 
 bool is_float(string str)
 {
 	int k = 0;
-	for (auto c : str)
-		if (c == '.' && k == 0)
-			k++;
+	for (int c = 0; c < str.size(); c++)
+		if (c == 0 && str[c] == '-')
+			continue;
 		else
-			if (c == '.' && k != 0)
-				return false;
+			if (c == '.' && k == 0)
+				k++;
 			else
-				if (c < '0' || c > '9')
+				if (c == '.' && k != 0)
 					return false;
+				else
+					if ((str[c] < '0' || str[c] > '9'))
+						return false;
 	return true;
 }
 bool try_read_int(int& val)
@@ -69,7 +77,7 @@ bool try_read_double(double& val)
 	string buf;
 	cin >> buf;
 
-	if (buf.size() > 9 || !is_int(buf))
+	if (buf.size() > 9 || !is_double(buf))
 		return 0;
 
 	val = str_to<double>(buf);

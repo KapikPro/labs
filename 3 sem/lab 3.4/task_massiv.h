@@ -1,41 +1,42 @@
 #pragma once
 #include<algorithm>
-
-#define abs(a) a < 0 ? -a : a 
+#include<vector>
+#define abs(a) a < 0 ? -a : a
 
 template<typename T>
-int condition_1(T* begin, T* end)
+int condition_1(vector<T> v)
 {
 	int sum = 0;
-	for (T* i = begin; i != end; i++)
-		if (*i < 0)
+	for (int i = 0; i<v.size(); i++)
+		if (v[i] < 0)
 			sum++;
 	return sum;
 }
 
 template<typename T>
-T condition_2(T* begin, T* end)
+T condition_2(vector<T> v)
 {
-	T sum = 0;
-	T min_zn = abs( *begin);
-	T* min_uk = begin;
-	for (T* i = begin; i != end; i++)
-		if (abs(*i) < abs(min_zn))
+	T sum = 0, m=0;
+	T min_zn = abs(v[0]);
+	for (int i = 0; i < v.size(); i++)
+		if (abs(v[i]) < abs(min_zn))
 		{
-			min_zn = *i;
-			min_uk = i;
+			min_zn = v[i];
+			m = i;
 		}
-	for (T* i = min_uk; i != end; i++)
-		if (abs(*i) < 0)
-			sum += abs(*i);
+	for (int i = m; i < v.size(); i++)
+		if (abs(v[i]) < 0)
+			sum += abs(v[i]);
 	return sum;
 }
 
 template<typename T>
-void condition_3(T* begin, T* end)
+void condition_3(vector<T>& v)
 {
-	for (T* i = begin; i != end; i++)
-		if (*i < 0)
-		  *i = *i * (*i);
-	sort(begin, end);
+	for (int i = 0; i < v.size(); i++)
+		if (v[i] < 0)
+		{
+			v[i] = v[i] * v[i];
+		}
+	sort(v.begin(), v.end());
 }
