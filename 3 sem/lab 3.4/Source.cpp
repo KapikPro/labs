@@ -36,21 +36,24 @@ void work_with_massiv()
 			cout << "введите число:\n";
 			if (a == 1)
 			{
-				try_read_double(t1);
+				while (try_read_double(t1) != 1)
+					cout << "вы ввели некорректное число, повторите ввод\n";
 				v1.resize(k + 1);
 				v1[k] = t1;
 				k++;
 			}
 			if (a == 2)
 			{
-				try_read_float(t2);
+				while (try_read_float(t2) != 1)
+					cout << "вы ввели некорректное число, повторите ввод\n";
 				v2.resize(k + 1);
 				v2[k] = t2;
 				k++;
 			}
 			if (a == 3)
 			{
-				try_read_int(t3);
+				while (try_read_int(t3) != 1)
+					cout << "вы ввели некорректное число, повторите ввод\n";
 				v3.resize(k + 1);
 				v3[k] = t3;
 				k++;

@@ -1,7 +1,8 @@
 #pragma once
 #include<algorithm>
 #include<vector>
-#define abs(a) a < 0 ? -a : a
+#include<cmath>
+
 
 template<typename T>
 int condition_1(vector<T> v)
@@ -19,14 +20,16 @@ T condition_2(vector<T> v)
 	T sum = 0, m=0;
 	T min_zn = abs(v[0]);
 	for (int i = 0; i < v.size(); i++)
-		if (abs(v[i]) < abs(min_zn))
+		if ((abs(v[i])) < (abs(min_zn)))
 		{
 			min_zn = v[i];
 			m = i;
 		}
-	for (int i = m; i < v.size(); i++)
-		if (abs(v[i]) < 0)
+	if ((m + 1) != str.size())
+		for (int i = m + 1; i < v.size(); i++)
 			sum += abs(v[i]);
+	else
+		cout << "минимальный элемент расположен последним\n";
 	return sum;
 }
 

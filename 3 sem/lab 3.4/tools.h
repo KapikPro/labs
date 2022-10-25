@@ -17,7 +17,7 @@ T str_to(string h)
 bool is_int(string str)
 {
 	for (int c = 0; c < str.size(); c++)
-		if (c == 0 && str[c] == '-')
+		if (str[c] == '-' && c==0)
 			continue;
 		else
 			if ((str[c] < '0' || str[c] > '9'))
@@ -29,13 +29,13 @@ bool is_double(string str)
 {
 	int k = 0;
 	for (int c = 0; c < str.size(); c++)
-		if (c == 0 && str[c] == '-')
+		if (str[c] == '-' && c==0)
 			continue;
 		else
-			if (c == '.' && k == 0)
+			if (str[c] == '.' && k == 0)
 				k++;
 			else
-				if (c == '.' && k != 0)
+				if (str[c] == '.' && k != 0)
 					return false;
 				else
 			if ((str[c] < '0' || str[c] > '9'))
@@ -47,13 +47,13 @@ bool is_float(string str)
 {
 	int k = 0;
 	for (int c = 0; c < str.size(); c++)
-		if (c == 0 && str[c] == '-')
+		if (str[c] == '-' && c==0)
 			continue;
 		else
-			if (c == '.' && k == 0)
+			if (str[c] == '.' && k == 0)
 				k++;
 			else
-				if (c == '.' && k != 0)
+				if (str[c] == '.' && k != 0)
 					return false;
 				else
 					if ((str[c] < '0' || str[c] > '9'))
