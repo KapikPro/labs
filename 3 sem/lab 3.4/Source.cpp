@@ -4,6 +4,13 @@
 #include"task_massiv.h"
 #include<vector>
 using namespace std;
+struct bus
+{
+	int num_bus;
+	string fam;
+	int sost;
+
+};
 void work_with_massiv()
 {
 	int a = 0, b = 0, k = 0, t3, p = 0;
@@ -80,12 +87,10 @@ void work_with_massiv()
 			}
 			break;
 		case(3):
-			if (a == 1)
-				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v1) << endl;
-			if (a == 2)
-				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v2) << endl;
-			if (a == 3)
-				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v3) << endl;
+			condition_3(v1);
+			condition_3(v2);
+			condition_3(v3);
+			cout << "замена произведена\n";
 			break;
 		case(4):
 			if (a == 1)
@@ -96,10 +101,12 @@ void work_with_massiv()
 				cout << "количество отрицательных элементов равно " << condition_1(v3) << endl;
 			break;
 		case(5):
-			condition_3(v1);
-			condition_3(v2);
-			condition_3(v3);
-			cout << "замена произведена\n";
+			if (a == 1)
+				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v1) << endl;
+			if (a == 2)
+				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v2) << endl;
+			if (a == 3)
+				cout << "сумма модулей элементов, расположенных после минимального по модулю элемента " << condition_2(v3) << endl;
 			break;
 		case(6):
 			p = 1;
@@ -109,7 +116,115 @@ void work_with_massiv()
 }
 void work_with_class()
 {
-
+	vector<bus> list(0);
+	int a = 0, b = 0, k = 0, p = 0, t=0;
+	cout << "выберете:\n1-добавить в список автобус\n2-показать список автобусов( с пометкой о том, где они)\n3-сменить статус автобуса(в парке или на маршруте)\n4-просмотреть данные определенного автобуса\n5-перезапустить программу\n";
+	while (true)
+	{
+		if (p == 1)
+			break;
+		cout << "выберете действие:\n";
+		while (try_read_int(b) != 1 || (b != 1 && b != 2 && b != 3 && b != 4 && b != 5))
+			cout << "введите 1,2,3 млм 4\n";
+		switch (b)
+		{
+		case(1):
+			list.resize(list.size() + 1);
+			cout << "введите номер автобуса:\n";
+			while (true)
+			{
+				while (try_read_int(k) != 1)
+					cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
+				for (int i = 0; i < list.size(); i++)
+					if (list[i].num_bus == k)
+					{
+						t = 1;
+						break;
+					}
+				if (t == 1)
+					cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
+				else
+					break;
+			}
+			list[list.size() - 1].num_bus = k;
+			t = 0;
+			cout << "ввведите фамилию водителя(на английском):\n";
+			cin >> list[list.size() - 1].fam;
+			cout << "если автобус сейчасв пути, введите 1, если же он в парке введите 2\n";
+			while (try_read_int(list[list.size() - 1].sost) != 1 || (list[list.size() - 1].sost != 1 && list[list.size() - 1].sost != 2))
+				cout << "вы ввели некорректное число, повторите ввод\n";
+			break;
+		case(2):
+			if (list.size() == 0)
+				cout << "список автобусов пуст\n";
+			else
+			for (int i = 0; i < list.size(); i++)
+			{
+				if (list[i].sost == 2)
+					cout << list[i].num_bus << " сейчас в парке\n";
+				else
+					cout << list[i].num_bus << " сейчас на маршруте\n";
+			}
+			break;
+		case(3):
+			cout << "введите номер автобуса, статус которого хотите сменить:\n";
+			while (true)
+			{
+				while (try_read_int(k) != 1)
+					cout << "вы ввели некорректное число, повторите ввод\n";
+				for (int i = 0; i < list.size(); i++)
+					if (list[i].num_bus == k)
+					{
+						t = 1;
+						k = i;
+						break;
+					}
+				if (t == 1)
+				{
+					t = 0;
+					break;
+				}
+				else
+					cout << "вы ввели несуществующий номер автобуса\n";
+			}
+			cout << "если вы хотите, чтобы автобус был пути, введите 1, если же чтобы в парке введите 2\n";
+			while (try_read_int(list[k].sost) != 1 || (list[k].sost != 1 && list[k].sost != 2))
+				cout << "вы ввели некорректное число, повторите ввод\n";
+		       break;
+		case(4):
+			cout << "введите номер автобуса, данные которого хотите просмотреть:\n";
+			while (true)
+			{
+				while (try_read_int(k) != 1)
+					cout << "вы ввели некорректное число, повторите ввод\n";
+				for (int i = 0; i < list.size(); i++)
+					if (list[i].num_bus == k)
+					{
+						k = i;
+						t = 1;
+						break;
+					}
+				if (t == 1)
+				{
+					t = 0;
+					break;
+				}
+				else
+					cout << "вы ввели несуществующий номер автобуса\n";
+			}
+			cout << "номер автобуса - "<<list[k].num_bus<< endl;
+			cout << "фамилия водителя - "<<list[k].fam << "\n";
+			cout << "cостояние автобуса - ";
+			if (list[k].sost == 1)
+				cout << "на маршруте" << endl;
+			else
+				cout << "в парке" << endl;
+			break;
+		case(5):
+			p = 1;
+			break;
+		}
+	}
 }
 int main()
 {
