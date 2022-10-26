@@ -25,7 +25,7 @@ T condition_2(vector<T> v)
 			min_zn = v[i];
 			m = i;
 		}
-	if ((m + 1) != str.size())
+	if ((m + 1) != v.size())
 		for (int i = m + 1; i < v.size(); i++)
 			sum += abs(v[i]);
 	else

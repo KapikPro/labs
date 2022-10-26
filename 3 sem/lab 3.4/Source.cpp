@@ -4,7 +4,7 @@
 #include"task_massiv.h"
 #include<vector>
 using namespace std;
-struct bus
+struct buss
 {
 	int num_bus;
 	string fam;
@@ -119,8 +119,12 @@ void work_with_massiv()
 }
 void work_with_class()
 {
-	vector<bus> list(0);
-	int a = 0, b = 0, k = 0, p = 0, t=0;
+	buss bus;
+
+	ListNode<buss> node(bus);
+	LinkedList<buss> list;
+
+	int a = 0, b = 0, k = 0, p = 0, t=0, f=0, j=0;
 	cout << "выберете:\n1-добавить в список автобус\n2-показать список автобусов( с пометкой о том, где они)\n3-сменить статус автобуса(в парке или на маршруте)\n4-просмотреть данные определенного автобуса\n5-перезапустить программу\n";
 	while (true)
 	{
@@ -132,42 +136,80 @@ void work_with_class()
 		switch (b)
 		{
 		case(1):
-			list.resize(list.size() + 1);
 			cout << "введите номер автобуса:\n";
 			while (true)
 			{
 				while (try_read_int(k) != 1)
 					cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
-				for (int i = 0; i < list.size(); i++)
-					if (list[i].num_bus == k)
-					{
-						t = 1;
-						break;
-					}
-				if (t == 1)
-					cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
-				else
+				if (list.first() == nullptr)
+				{
 					break;
+				}
+				else
+					if (list.first() == list.first()->get_next())
+					{
+						if (list.first()->get_value().num_bus == k)
+						{
+							t = 1;
+							break;
+						}
+						if (t == 1)
+						{
+							t = 0;
+							cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
+						}
+						else
+							break;
+					}
+					else
+						for (auto i = list.first(); (i->get_next() != list.first()->get_next() || j == 0); i = i->get_next())
+						{
+							j++;
+							if (i->get_value().num_bus == k)
+							{
+								t = 1;
+								break;
+							}
+						}
+				j = 0;
+				if (t == 1)
+				{
+					t = 0;
+					cout << "вы ввели существующий или некорректный номер автобуса, повторите ввод\n";
+				}
+				else
+
+					break;
+
 			}
-			list[list.size() - 1].num_bus = k;
+			bus.num_bus = k;
 			t = 0;
 			cout << "ввведите фамилию водителя(на английском):\n";
-			cin >> list[list.size() - 1].fam;
+			cin >> bus.fam;
 			cout << "если автобус сейчасв пути, введите 1, если же он в парке введите 2\n";
-			while (try_read_int(list[list.size() - 1].sost) != 1 || (list[list.size() - 1].sost != 1 && list[list.size() - 1].sost != 2))
+			while (try_read_int(bus.sost) != 1 || (bus.sost != 1 && bus.sost != 2))
 				cout << "вы ввели некорректное число, повторите ввод\n";
+			list.push_back(bus);
 			break;
 		case(2):
-			if (list.size() == 0)
+			if (list.first() == nullptr)
 				cout << "список автобусов пуст\n";
 			else
-			for (int i = 0; i < list.size(); i++)
-			{
-				if (list[i].sost == 2)
-					cout << list[i].num_bus << " сейчас в парке\n";
+				if (list.first() == list.first()->get_next())
+					if (list.first()->get_value().sost == 2)
+						cout << list.first()->get_value().num_bus << " сейчас в парке\n";
+					else
+						cout << list.first()->get_value().num_bus << " сейчас на маршруте\n";
 				else
-					cout << list[i].num_bus << " сейчас на маршруте\n";
-			}
+					for (auto i = list.first(); (i->get_next() != list.first()->get_next() || j == 0); i = i->get_next())
+					{
+						j++;
+						if (i->get_value().sost == 2)
+							cout << i->get_value().num_bus << " сейчас в парке\n";
+						else
+							cout << i->get_value().num_bus << " сейчас на маршруте\n";
+					}
+			j = 0;
 			break;
 		case(3):
 			cout << "введите номер автобуса, статус которого хотите сменить:\n";
@@ -175,13 +217,57 @@ void work_with_class()
 			{
 				while (try_read_int(k) != 1)
 					cout << "вы ввели некорректное число, повторите ввод\n";
-				for (int i = 0; i < list.size(); i++)
-					if (list[i].num_bus == k)
+				if (list.first() == nullptr)
+				{
+					cout << "список пустой\n";
+					break;
+				}
+				else
+					if (list.first() == list.first()->get_next())
 					{
-						t = 1;
-						k = i;
+						
+						
+							if (list.first()->get_value().num_bus == k)
+							{
+								t = 1;
+							}
+							if (t == 0)
+							{
+								cout << "вы ввели несуществующий или некорректный номер автобуса, повторите ввод\n";
+							}
+							else
+								t=0;
+						
+						if (list.first()->get_value().num_bus == k)
+						{
+							cout << "если вы хотите, чтобы автобус был пути, введите 1, если же чтобы в парке введите 2\n";
+							while (try_read_int(f) != 1 || (f != 1 && f != 2))
+								cout << "вы ввели некорректное число, повторите ввод\n";
+							bus.num_bus = list.first()->get_value().num_bus;
+							bus.fam = list.first()->get_value().fam;
+							bus.sost = f;
+							list.first()->set_value(bus);
+
+						}
 						break;
 					}
+					else
+						for (auto i = list.first(); (i->get_next() != list.first()->get_next() || j == 0); i = i->get_next())
+						{
+							j++;
+							if (i->get_value().num_bus == k)
+							{
+								cout << "если вы хотите, чтобы автобус был пути, введите 1, если же чтобы в парке введите 2\n";
+								while (try_read_int(f) != 1 || (f != 1 && f != 2))
+									cout << "вы ввели некорректное число, повторите ввод\n";
+								bus.num_bus = i->get_value().num_bus;
+								bus.fam = i->get_value().fam;
+								bus.sost = f;
+								i->set_value(bus);
+								t = 1;
+								break;
+							}
+						}
 				if (t == 1)
 				{
 					t = 0;
@@ -190,38 +276,46 @@ void work_with_class()
 				else
 					cout << "вы ввели несуществующий номер автобуса\n";
 			}
-			cout << "если вы хотите, чтобы автобус был пути, введите 1, если же чтобы в парке введите 2\n";
-			while (try_read_int(list[k].sost) != 1 || (list[k].sost != 1 && list[k].sost != 2))
-				cout << "вы ввели некорректное число, повторите ввод\n";
+
+				j = 0;
 		       break;
 		case(4):
 			cout << "введите номер автобуса, данные которого хотите просмотреть:\n";
 			while (true)
 			{
+				if (list.first() == nullptr)
+				{
+					cout << "список пустой\n";
+					break;
+				}
 				while (try_read_int(k) != 1)
 					cout << "вы ввели некорректное число, повторите ввод\n";
-				for (int i = 0; i < list.size(); i++)
-					if (list[i].num_bus == k)
+				for (auto i = list.first(); (i->get_next() != list.first()->get_next() || j == 0); i = i->get_next())
+				{
+					j++;
+					if (i->get_value().num_bus == k)
 					{
-						k = i;
+						cout << "номер автобуса - " << i->get_value().num_bus << endl;
+						cout << "фамилия водителя - " << i->get_value().fam << "\n";
+						cout << "cостояние автобуса - ";
+						if (i->get_value().sost == 1)
+							cout << "на маршруте" << endl;
+						else
+							cout << "в парке" << endl;
 						t = 1;
 						break;
 					}
-				if (t == 1)
-				{
-					t = 0;
-					break;
+					
 				}
-				else
-					cout << "вы ввели несуществующий номер автобуса\n";
+				if (t == 1)
+					{
+						t = 0;
+						break;
+					}
+					else
+						cout << "вы ввели несуществующий номер автобуса\n";
 			}
-			cout << "номер автобуса - "<<list[k].num_bus<< endl;
-			cout << "фамилия водителя - "<<list[k].fam << "\n";
-			cout << "cостояние автобуса - ";
-			if (list[k].sost == 1)
-				cout << "на маршруте" << endl;
-			else
-				cout << "в парке" << endl;
+				j = 0;
 			break;
 		case(5):
 			p = 1;
@@ -230,7 +324,7 @@ void work_with_class()
 	}
 }
 int main()
-{
+ {
 	setlocale(LC_ALL, "Russian");
 	int a;
 	cout << "1-задание с шаблоном функции\n2-задание с шаблоном класса\n";

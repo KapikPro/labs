@@ -94,10 +94,3 @@ bool try_read_float(float& val)
 	val = str_to<float>(buf);
 	return 1;
 }
-template<typename T>
-void output(T* begin, T* end)
-{
-	for (T* i = begin; i != end; i++)
-		cout << *i << " ";
-	cout << endl;
-}

@@ -23,7 +23,7 @@ public:
 
 	ListNode* get_prev()
 	{
-		return prev;
+		return _prev;
 	}
 
 	void set_prev(ListNode* prev)
@@ -33,7 +33,7 @@ public:
 
 	ListNode* get_next()
 	{
-		return next;
+		return _next;
 	}
 
 	void set_next(ListNode* next)
@@ -53,74 +53,89 @@ class LinkedList
 public:
 	LinkedList()
 	{
-		first = nullptr;
-		last = nullptr;
+		_first = nullptr;
+		_last = nullptr;
 	}
 	void push_front(T value)
 	{
-		if (first == nullptr)
+		if (_first == nullptr)
 		{
-			first = last = new ListNode<T>(value);
-			first->set_prev(last);
-			last->set_next(first);
+			_first = _last = new ListNode<T>(value);
+			_first->set_prev(_last);
+			_last->set_next(_first);
+			_first->set_value(value);
 			return;
 		}
 		else
 		{
 			auto new_node =  new ListNode<T>(value);
-			new_node->prev->set_prev(last);
-			new_node->next->set_next(first);
-			first = new_node;
+			new_node->set_prev(_last);
+			new_node->set_next(_first);
+			new_node->set_value(value);
+			_first = new_node;
 		}
 	}
 	void push_back(T value)
 	{
-		if (first == nullptr)
+		if (_first == nullptr)
 		{
-			first = last = new ListNode<T>(value);
-			first->set_prev(last);
-			last->set_next(first);
+			_first = _last = new ListNode<T>(value);
+			_first->set_prev(_last);
+			_last->set_next(_first);
+			_last->set_value(value);
 			return;
 		}
 		else
 		{
 			auto new_node = new ListNode<T>(value);
-			new_node->prev->set_prev(last);
-			new_node->next->set_next(first);
-			last = new_node;
+			new_node->set_prev(_last);
+			new_node->set_next(_first);
+			new_node->get_prev()->set_next(new_node);
+			new_node->get_next()->set_prev(new_node);
+			new_node->set_value(value);
+			_last = new_node;
 		}
 	}
 	void pop_back(T value)
 	{
-		if (first == nullptr)
+		if (_first == nullptr)
 		{
 			cout << "список и так пустой, остановитесь\n";
 		}
 		else
 		{
-			auto prelast = last->get_prev();
-			delete last;
-			last = prelast;
-			last->set_next(first);
-			last->set_prev(prelast->prev);
+			auto prelast = _last->get_prev();
+			delete _last;
+			_last = prelast;
+			_last->set_next(first);
+			_last->set_prev(prelast->prev);
 		}
 	}
 	void pop_front(T value)
 	{
-		if (first == nullptr)
+		if (_first == nullptr)
 		{
 			cout << "список и так пустой, остановитесь\n";
 		}
 		else
 		{
-			auto next_next = first->get_next();
-			delete first;
-			first=next_next;
-			last->set_next(next_next->next);
-			last->set_prev(last);
+			auto next_next = _first->get_next();
+			delete _first;
+			_first=next_next;
+			_last->set_next(next_next->next);
+			_last->set_prev(_last);
 		}
 	}
+	ListNode<T>* first()
+	{
+		return _first;
+	}
+	ListNode<T>* last()
+	{
+		return _last;
+	}
+
 private:
-	ListNode<T>* first;
-	ListNode<T>* last;
+	ListNode<T>* _first;
+	ListNode<T>* _last;
 };
