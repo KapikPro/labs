@@ -1,6 +1,6 @@
 ﻿#include "Room.h"
 
-class RoomWithWallpaper : public Room
+class RoomWithWallpaper : private Room
 {
 public:
 	RoomWithWallpaper(double length, double width, double height, int windows_count = 0)

@@ -38,7 +38,8 @@ int check(string n)
 	else
 		if (k == 2)
 			return 2;
-		else return 0;
+		else
+			return 0;
 }
 
 int main()
@@ -48,7 +49,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	while (1)
 	{
-		cout << "введите длинну\n";
+		cout << "введите длину\n";
 		cin >> s;
 		if (check(s) != 1)
 			while (1)
@@ -161,7 +162,7 @@ int main()
 					if (h == 3)
 					{
 						cout << "вывод параметров комнаты:" << endl;
-						cout << "длинна комнаты равна " << a.get_length() << endl;
+						cout << "длина комнаты равна " << a.get_length() << endl;
 						cout << "ширина комнаты равна " << a.get_width() << endl;
 						cout << "высота комнаты равна " << a.get_height() << endl;
 						cout << "количество окон в комнате равна " << a.get_windows_count() << endl;
@@ -182,3 +183,5 @@ int main()
 	}
 	return 0;
 }
+
+

@@ -10,6 +10,17 @@ class Room
 public:
 	Room(double length, double width, double height, int windows_count = 0)
 	{
+		if (length <= 0)
+			throw std::exception("Invalid negative or null length");
+
+		if (width <= 0)
+			throw std::exception("Invalid negative or null width");
+
+		if (height <= 0)
+			throw std::exception("Invlalid negative or null height");
+
+		if (windows_count < 0)
+			throw std::exception("Invlalid windows count");
 
 		_length = length;
 		_width = width;

@@ -130,12 +130,12 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomWithWallpaper.h" />
-    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
