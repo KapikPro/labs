@@ -45,6 +45,14 @@ public:
 	{
 		return _work;
 	}
+	void set_plata(float plata)
+	{
+		_plata = plata;
+	}
+	float get_plata()
+	{
+		return _plata;
+	}
 private:
 	string _name;
 	string _fam;
