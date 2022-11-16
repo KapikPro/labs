@@ -21,17 +21,9 @@ public:
 			cout << _obr[i] << endl;
 		}
 	}
-	vector<string> vozv_obr()
-	{
-		return _obr;
-	}
 	void set_obr(string s)
 	{
 		_obr.push_back(s);
-	}
-	void sset_obr(vector<string> obr)
-	{
-		_obr = obr;
 	}
 private:
 	vector<string> _obr;
@@ -122,12 +114,7 @@ public:
 	void set_adm(adm c)
 	{
 		_a.resize(_vec.size());
-		_a[_vec.size() - 1].set_fam(c.get_fam());
-		_a[_vec.size() - 1].set_name(c.get_name());
-		_a[_vec.size() - 1].set_otch(c.get_otch());
-		_a[_vec.size() - 1].set_plata(c.get_plata());
-		_a[_vec.size() - 1].set_work(c.get_work());
-		_a[_vec.size() - 1].sset_obr(c.vozv_obr());
+		_a[_vec.size() - 1] = (c);
 	}
 	adm get_adm(int n)
 	{
@@ -160,6 +147,7 @@ public:
 		_v.resize(_vec.size());
 		_v[_vec.size()-1]=(c);
 	}
+	
 	void del_worker(int ind)
 	{
 		if(_vec[ind].get_work()=="")

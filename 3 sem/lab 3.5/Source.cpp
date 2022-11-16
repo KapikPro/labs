@@ -6,7 +6,7 @@
 using namespace std;
 void first()
 {
-	int a,k=1,b,t=0,d=0;
+	int a, k = 1, b, t = 0, d = 0;
 	string s="1", cat;
 	vector<boss> osn;
 	vector<string> ob,prava,tran,teh;
@@ -172,7 +172,7 @@ void first()
 					while (try_read_int(d) != 1 || d<1 || d>osn[t].vec_size())
 						cout << "вы ввели что-то страшное, повторите ввод\n";
 					d--;
-					if(osn[t].get_work() == "admin")
+					 if (osn[t].get_work() == "admin")
 					{
 						cout << "работа - системный администратор\n";
 						cout << "Фио - " << osn[t].get_adm(d).get_fam() << " " << osn[t].get_adm(d).get_name() << " " << osn[t].get_adm(d).get_otch() << endl;
@@ -195,7 +195,7 @@ void first()
 							cout << "зарплата - " << osn[t].get_proger(d).get_plata() << endl;
 							cout << " уровень программиста - " << osn[t].get_proger(d).get_cat() << endl;
 							osn[t].get_proger(d).get_teh();
-						}
+						} 
 				}
 			}
 			break;
@@ -205,7 +205,7 @@ void first()
 			k = 0;
 			break;
 		}
-	}
+	} 
 }
 void second()
 {
